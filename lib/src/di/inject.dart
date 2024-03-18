@@ -3,7 +3,10 @@ import 'package:contact_auth_bloc/src/data/data_sources/auth/impl/auth_data_sour
 import 'package:contact_auth_bloc/src/data/repositories/auth/auth_repository.dart';
 import 'package:contact_auth_bloc/src/data/repositories/auth/impl/auth_repository_impl.dart';
 import 'package:contact_auth_bloc/src/domain/use_cases/auth/impl/sign_in_with_google_use_case_impl.dart';
+import 'package:contact_auth_bloc/src/domain/use_cases/auth/impl/sign_out_use_case_impl.dart';
 import 'package:contact_auth_bloc/src/domain/use_cases/auth/sign_in_with_google_use_case.dart';
+import 'package:contact_auth_bloc/src/domain/use_cases/auth/sign_out_use_case.dart';
+import 'package:contact_auth_bloc/src/presentation/home/controller/home_cubit.dart';
 import 'package:contact_auth_bloc/src/presentation/login/controller/login_cubit.dart';
 import 'package:contact_auth_bloc/src/presentation/welcome/controller/welcome_cubit.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -55,6 +58,11 @@ class Inject {
         repository: getIt.get(),
       ),
     );
+    getIt.registerLazySingleton<SignOutUseCase>(
+      () => SignOutUseCaseImpl(
+        repository: getIt.get(),
+      ),
+    );
   }
 
   static void _configureCubits() {
@@ -64,6 +72,11 @@ class Inject {
     getIt.registerFactory(
       () => LoginCubit(
         signInWithGoogleUseCase: getIt.get(),
+      ),
+    );
+    getIt.registerFactory(
+      () => HomeCubit(
+        signOutUseCase: getIt.get(),
       ),
     );
   }

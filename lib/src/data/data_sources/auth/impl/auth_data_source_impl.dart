@@ -32,4 +32,14 @@ class AuthDataSourceImpl implements AuthDataSource {
       throw AppGenericException(message: "Erro ao realizar Login!");
     }
   }
+
+  @override
+  Future<void> signOut() async {
+    try {
+      await _firebaseAuth.signOut();
+      await _googleSignIn.signOut();
+    } catch (e) {
+      throw AppGenericException(message: 'Erro inesperado! Tente novamente mais tarde!');
+    }
+  }
 }

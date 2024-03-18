@@ -17,4 +17,13 @@ class AuthRepositoryImpl implements AuthRepository {
       throw AppGenericException(message: e.message);
     }
   }
+
+  @override
+  Future<void> signOut() async {
+    try {
+      return await _dataSource.signOut();
+    } on AppGenericException catch (e) {
+      throw AppGenericException(message: e.message);
+    }
+  }
 }
