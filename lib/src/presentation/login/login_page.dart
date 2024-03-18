@@ -3,7 +3,7 @@ import 'package:contact_auth_bloc/src/core/ui/base_bloc_state.dart';
 import 'package:contact_auth_bloc/src/core/ui/components/app_label.dart';
 import 'package:contact_auth_bloc/src/core/ui/components/app_title.dart';
 import 'package:contact_auth_bloc/src/core/ui/components/loader_component.dart';
-import 'package:contact_auth_bloc/src/core/ui/components/snackbar_component.dart';
+import 'package:contact_auth_bloc/src/core/ui/components/snack_bar/snack_bar_component.dart';
 import 'package:contact_auth_bloc/src/core/ui/components/spacing_page.dart';
 import 'package:contact_auth_bloc/src/presentation/login/controller/login_cubit.dart';
 import 'package:contact_auth_bloc/src/presentation/login/controller/login_state.dart';
@@ -50,7 +50,10 @@ class _LoginPageState extends BaseBlocState<LoginPage, LoginCubit> {
               bloc: controller,
               listener: (context, state) {
                 if (state is LoginStateError) {
-                  return SnackbarComponent.error(context, message: state.message);
+                  return SnackBarComponent.error(
+                    context,
+                    message: state.message,
+                  );
                 }
               },
               builder: (context, state) {

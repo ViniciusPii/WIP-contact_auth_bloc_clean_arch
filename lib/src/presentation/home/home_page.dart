@@ -1,6 +1,6 @@
 import 'package:contact_auth_bloc/src/core/ui/base_bloc_state.dart';
 import 'package:contact_auth_bloc/src/core/ui/components/app_title.dart';
-import 'package:contact_auth_bloc/src/core/ui/components/snackbar_component.dart';
+import 'package:contact_auth_bloc/src/core/ui/components/snack_bar/snack_bar_component.dart';
 import 'package:contact_auth_bloc/src/presentation/home/controller/home_cubit.dart';
 import 'package:contact_auth_bloc/src/presentation/home/controller/home_state.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +26,7 @@ class _HomePageState extends BaseBlocState<HomePage, HomeCubit> {
         bloc: controller,
         listener: (context, state) {
           if (state is HomeStateError) {
-            return SnackbarComponent.error(context, message: state.message);
+            return SnackBarComponent.error(context, message: state.message);
           }
         },
         builder: (context, state) {
