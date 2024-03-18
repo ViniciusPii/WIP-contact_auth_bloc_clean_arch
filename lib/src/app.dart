@@ -15,8 +15,8 @@ class App extends StatelessWidget {
       child: MaterialApp(
         routes: AppRoutes.routes,
         theme: AppTheme.defaultTheme,
-        initialRoute: AppRoutes.welcome,
         debugShowCheckedModeBanner: false,
+        initialRoute: AppRoutes.authentication,
       ),
     );
   }

@@ -26,4 +26,13 @@ class AuthRepositoryImpl implements AuthRepository {
       throw AppGenericException(message: e.message);
     }
   }
+
+  @override
+  Stream<bool> isLoggedIn() {
+    try {
+      return _dataSource.isLoggedIn();
+    } on AppGenericException catch (e) {
+      throw AppGenericException(message: e.message);
+    }
+  }
 }

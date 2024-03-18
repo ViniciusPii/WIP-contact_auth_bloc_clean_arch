@@ -42,4 +42,16 @@ class AuthDataSourceImpl implements AuthDataSource {
       throw AppGenericException(message: 'Erro inesperado! Tente novamente mais tarde!');
     }
   }
+
+  @override
+  Stream<bool> isLoggedIn() {
+    try {
+      return _firebaseAuth.authStateChanges().map((user) => user != null);
+    } catch (e) {
+      throw AppGenericException(
+        message:
+            'Não conseguimos identificar se está logado, faça novamente o login, ou tente mais tarde!',
+      );
+    }
+  }
 }

@@ -31,6 +31,7 @@ class _HomePageState extends BaseBlocState<HomePage, HomeCubit> {
         },
         builder: (context, state) {
           return FloatingActionButton(
+            //TODO apagar após a pagina de detalhes
             onPressed: () => controller.signOut(),
             child: const Icon(Icons.logout_rounded),
           );
