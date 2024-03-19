@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../app_styles.dart';
+import '/src/core/theme/app_styles.dart';
 
 enum TextSize {
   smallSize(size: 11),

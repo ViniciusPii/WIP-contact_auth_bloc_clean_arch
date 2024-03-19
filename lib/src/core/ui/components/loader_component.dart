@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../theme/app_styles.dart';
-import '../../theme/infra/app_dimension.dart';
+import '/src/core/theme/app_styles.dart';
+import '/src/core/theme/infra/app_dimension.dart';
 import 'three_bounce_component.dart';
 
 class LoaderComponent extends StatelessWidget {

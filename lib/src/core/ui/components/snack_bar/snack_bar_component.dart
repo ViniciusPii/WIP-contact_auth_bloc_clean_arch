@@ -1,12 +1,12 @@
-import 'package:contact_auth_bloc/src/core/ui/components/snack_bar/base_snack_bar_component.dart';
-import 'package:contact_auth_bloc/src/core/ui/components/snack_bar/enums/snack_bar_position.dart';
-import 'package:contact_auth_bloc/src/core/ui/components/snack_bar/enums/snack_bar_type.dart';
-import 'package:contact_auth_bloc/src/core/ui/components/snack_bar/snack_bar_config.dart';
 import 'package:flutter/material.dart';
 
-import '../../../theme/infra/app_colors.dart';
-import '../../../theme/infra/app_dimension.dart';
-import '../../../theme/infra/app_fonts.dart';
+import '/src/core/theme/infra/app_colors.dart';
+import '/src/core/theme/infra/app_dimension.dart';
+import '/src/core/theme/infra/app_fonts.dart';
+import '/src/core/ui/components/snack_bar/base_snack_bar_component.dart';
+import '/src/core/ui/components/snack_bar/enums/snack_bar_position.dart';
+import '/src/core/ui/components/snack_bar/enums/snack_bar_type.dart';
+import '/src/core/ui/components/snack_bar/snack_bar_config.dart';
 
 class SnackBarComponent {
   SnackBarComponent._();

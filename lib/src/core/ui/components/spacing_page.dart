@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../theme/infra/app_dimension.dart';
+import '/src/core/theme/infra/app_dimension.dart';
 
 class SpacingPage extends StatelessWidget {
   const SpacingPage({

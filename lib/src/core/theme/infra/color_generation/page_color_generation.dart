@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../ui/components/spacing_page.dart';
+import '/src/core/ui/components/spacing_page.dart';
 import 'app_color_generate.dart';
 
 class PageColorGeneration extends StatelessWidget {

@@ -1,6 +1,7 @@
-import 'package:contact_auth_bloc/src/core/theme/infra/app_colors.dart';
-import 'package:contact_auth_bloc/src/core/ui/components/snack_bar/enums/snack_bar_type.dart';
 import 'package:flutter/material.dart';
+
+import '/src/core/theme/infra/app_colors.dart';
+import '/src/core/ui/components/snack_bar/enums/snack_bar_type.dart';
 
 class SnackBarConfig {
   SnackBarConfig({

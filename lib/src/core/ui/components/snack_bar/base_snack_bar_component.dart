@@ -1,6 +1,7 @@
-import 'package:contact_auth_bloc/src/core/theme/infra/app_dimension.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+
+import '/src/core/theme/infra/app_dimension.dart';
 
 class BaseSnackBarComponent {
   BaseSnackBarComponent._();
