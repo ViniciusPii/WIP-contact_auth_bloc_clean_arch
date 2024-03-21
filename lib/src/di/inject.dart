@@ -11,6 +11,8 @@ import 'package:contact_auth_bloc/src/domain/use_cases/auth/sign_out_use_case.da
 import 'package:contact_auth_bloc/src/presentation/authentication/controller/authentication_cubit.dart';
 import 'package:contact_auth_bloc/src/presentation/home/controller/home_cubit.dart';
 import 'package:contact_auth_bloc/src/presentation/login/controller/login_cubit.dart';
+import 'package:contact_auth_bloc/src/presentation/navigation/controller/navigation_cubit.dart';
+import 'package:contact_auth_bloc/src/presentation/profile/controller/profile_cubit.dart';
 import 'package:contact_auth_bloc/src/presentation/welcome/controller/welcome_cubit.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_it/get_it.dart';
@@ -83,13 +85,19 @@ class Inject {
       ),
     );
     getIt.registerFactory(
-      () => HomeCubit(
-        signOutUseCase: getIt.get(),
-      ),
+      () => HomeCubit(),
     );
     getIt.registerFactory(
       () => AuthenticationCubit(
         isLoggedInUseCase: getIt.get(),
+      ),
+    );
+    getIt.registerFactory(
+      () => NavigationCubit(),
+    );
+    getIt.registerFactory(
+      () => ProfileCubit(
+        signOutUseCase: getIt.get(),
       ),
     );
   }

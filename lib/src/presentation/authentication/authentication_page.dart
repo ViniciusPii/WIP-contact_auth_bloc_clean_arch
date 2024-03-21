@@ -1,9 +1,7 @@
 import 'package:contact_auth_bloc/src/core/ui/base_bloc_state.dart';
 import 'package:contact_auth_bloc/src/presentation/authentication/controller/authentication_cubit.dart';
 import 'package:contact_auth_bloc/src/presentation/authentication/controller/authentication_state.dart';
-import 'package:contact_auth_bloc/src/presentation/home/home_page.dart';
-import 'package:contact_auth_bloc/src/presentation/login/login_page.dart';
-import 'package:contact_auth_bloc/src/presentation/welcome/welcome_page.dart';
+import 'package:contact_auth_bloc/src/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -27,9 +25,9 @@ class _AuthenticationPageState extends BaseBlocState<AuthenticationPage, Authent
       bloc: controller,
       builder: (context, state) {
         return switch (state) {
-          AuthenticationStateInitial() => const WelcomePage(),
-          AuthenticationStateAuthAuthenticated() => const HomePage(),
-          AuthenticationStateAuthUnauthenticated() => const LoginPage(),
+          AuthenticationStateInitial() => context.route(AppRoutes.welcome),
+          AuthenticationStateAuthUnauthenticated() => context.route(AppRoutes.login),
+          AuthenticationStateAuthAuthenticated() => context.route(AppRoutes.navigationPage),
         };
       },
     );
