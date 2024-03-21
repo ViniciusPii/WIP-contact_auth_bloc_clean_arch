@@ -1,4 +1,5 @@
 import 'package:contact_auth_bloc/src/core/ui/base_bloc_state.dart';
+import 'package:contact_auth_bloc/src/core/ui/components/app_label.dart';
 import 'package:contact_auth_bloc/src/core/ui/components/app_title.dart';
 import 'package:contact_auth_bloc/src/core/ui/components/snack_bar/snack_bar_component.dart';
 import 'package:contact_auth_bloc/src/presentation/home/controller/home_cubit.dart';
@@ -15,11 +16,34 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends BaseBlocState<HomePage, HomeCubit> {
   @override
+  void onReady(BuildContext context) {
+    super.onReady(context);
+    controller.getUser();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: const SafeArea(
-        child: Center(
-          child: AppTitle(title: 'Home Page'),
+      body: SafeArea(
+        child: BlocBuilder<HomeCubit, HomeState>(
+          bloc: controller,
+          builder: (context, state) {
+            if (state is HomeStateSuccess) {
+              return Center(
+                child: ListTile(
+                  title: AppTitle(
+                    title: state.user.name,
+                  ),
+                  subtitle: AppLabel(
+                    label: state.user.email,
+                    isCenter: false,
+                  ),
+                ),
+              );
+            }
+
+            return const SizedBox.shrink();
+          },
         ),
       ),
       floatingActionButton: BlocConsumer<HomeCubit, HomeState>(

@@ -1,3 +1,5 @@
+import 'package:contact_auth_bloc/src/domain/entities/user_entity.dart';
+
 sealed class HomeState {
   const HomeState();
 }
@@ -7,7 +9,9 @@ class HomeStateInitial extends HomeState {
 }
 
 class HomeStateSuccess extends HomeState {
-  const HomeStateSuccess();
+  const HomeStateSuccess({required this.user});
+
+  final UserEntity user;
 }
 
 class HomeStateError extends HomeState {
