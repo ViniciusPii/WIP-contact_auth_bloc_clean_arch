@@ -18,4 +18,13 @@ class UserRepositoryImpl implements UserRepository {
       throw AppGenericException(message: e.message);
     }
   }
+
+  @override
+  Future<void> updateUserName(String name) {
+    try {
+      return _dataSource.updateUserName(name);
+    } on AppGenericException catch (e) {
+      throw AppGenericException(message: e.message);
+    }
+  }
 }

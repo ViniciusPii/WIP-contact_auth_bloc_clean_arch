@@ -1,7 +1,14 @@
+import 'package:contact_auth_bloc/src/core/theme/infra/app_dimension.dart';
 import 'package:contact_auth_bloc/src/core/ui/base_bloc_state.dart';
+import 'package:contact_auth_bloc/src/core/ui/components/app_label.dart';
+import 'package:contact_auth_bloc/src/core/ui/components/app_title.dart';
+import 'package:contact_auth_bloc/src/core/ui/components/snack_bar/snack_bar_component.dart';
 import 'package:contact_auth_bloc/src/core/ui/components/spacing_page.dart';
 import 'package:contact_auth_bloc/src/presentation/profile/controller/profile_cubit.dart';
+import 'package:contact_auth_bloc/src/presentation/profile/controller/profile_state.dart';
+import 'package:contact_auth_bloc/src/presentation/profile/widgets/profile_modal_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -11,19 +18,85 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends BaseBlocState<ProfilePage, ProfileCubit> {
+  final _formKey = GlobalKey<FormState>();
+  final _nameEC = TextEditingController();
+
+  @override
+  void onReady(BuildContext context) {
+    super.onReady(context);
+    controller.getUser();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _nameEC.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: SpacingPage(
         child: Scaffold(
-          body: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              ElevatedButton(
-                onPressed: () => controller.signOut(),
-                child: const Text('Deslogar'),
-              ),
-            ],
+          body: BlocConsumer<ProfileCubit, ProfileState>(
+            bloc: controller,
+            listener: (context, state) {
+              if (state is ProfileStateUpdateUserError) {
+                return SnackBarComponent.info(context, message: state.message);
+              }
+
+              if (state is ProfileStateError) {
+                return SnackBarComponent.info(context, message: state.message);
+              }
+
+              if (state is ProfileStateUserError) {
+                return SnackBarComponent.info(context, message: state.message);
+              }
+            },
+            builder: (context, state) {
+              if (state is ProfileStateUserSuccess) {
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    AppTitle(title: state.user.name),
+                    const SizedBox(
+                      height: AppDimension.small,
+                    ),
+                    AppLabel(label: state.user.email),
+                    const SizedBox(
+                      height: AppDimension.mega,
+                    ),
+                    ElevatedButton(
+                      onPressed: () => {
+                        showModalBottomSheet(
+                          context: context,
+                          isDismissible: false,
+                          enableDrag: false,
+                          isScrollControlled: true,
+                          builder: (_) => ProfileModalWidget(
+                            formKey: _formKey,
+                            controllerEC: _nameEC,
+                            bloc: controller,
+                            onChangeNameAction: () async {
+                              final NavigatorState navigator = Navigator.of(context);
+                              await controller.updateUserName(_nameEC.text);
+                              controller.getUser();
+                              navigator.pop();
+                            },
+                          ),
+                        ),
+                      },
+                      child: const Text('Alterar dados'),
+                    ),
+                    TextButton(
+                      onPressed: () => controller.signOut(),
+                      child: const Text('Deslogar'),
+                    )
+                  ],
+                );
+              }
+              return const SizedBox.shrink();
+            },
           ),
         ),
       ),

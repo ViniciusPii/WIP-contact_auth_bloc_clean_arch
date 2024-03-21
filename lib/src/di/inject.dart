@@ -14,6 +14,8 @@ import 'package:contact_auth_bloc/src/domain/use_cases/auth/sign_in_with_google_
 import 'package:contact_auth_bloc/src/domain/use_cases/auth/sign_out_use_case.dart';
 import 'package:contact_auth_bloc/src/domain/use_cases/user/get_user_use_case.dart';
 import 'package:contact_auth_bloc/src/domain/use_cases/user/impl/get_user_use_case_impl.dart';
+import 'package:contact_auth_bloc/src/domain/use_cases/user/impl/update_user_name_use_case_impl.dart';
+import 'package:contact_auth_bloc/src/domain/use_cases/user/update_user_name_use_case.dart';
 import 'package:contact_auth_bloc/src/presentation/authentication/controller/authentication_cubit.dart';
 import 'package:contact_auth_bloc/src/presentation/home/controller/home_cubit.dart';
 import 'package:contact_auth_bloc/src/presentation/login/controller/login_cubit.dart';
@@ -38,89 +40,66 @@ class Inject {
   }
 
   static void _configureServices() {
-    getIt.registerLazySingleton(
-      () => FirebaseAuth.instance,
-    );
-    getIt.registerLazySingleton(
-      () => GoogleSignIn(),
-    );
+    getIt.registerLazySingleton(() => FirebaseAuth.instance);
+    getIt.registerLazySingleton(() => GoogleSignIn());
   }
 
   static void _configureDataSources() {
+    // Auth
     getIt.registerLazySingleton<AuthDataSource>(
-      () => AuthDataSourceImpl(
-        firebaseAuth: getIt.get(),
-        googleSignIn: getIt.get(),
-      ),
+      () => AuthDataSourceImpl(firebaseAuth: getIt.get(), googleSignIn: getIt.get()),
     );
+
+    // User
     getIt.registerLazySingleton<UserDataSource>(
-      () => UserDataSourceImpl(
-        firebaseAuth: getIt.get(),
-      ),
+      () => UserDataSourceImpl(firebaseAuth: getIt.get()),
     );
   }
 
   static void _configureRepositories() {
+    // Auth
     getIt.registerLazySingleton<AuthRepository>(
-      () => AuthRepositoryImpl(
-        dataSource: getIt.get(),
-      ),
+      () => AuthRepositoryImpl(dataSource: getIt.get()),
     );
+
+    // User
     getIt.registerLazySingleton<UserRepository>(
-      () => UserRepositoryImpl(
-        dataSource: getIt.get(),
-      ),
+      () => UserRepositoryImpl(dataSource: getIt.get()),
     );
   }
 
   static void _configureUseCases() {
+    // Auth
     getIt.registerLazySingleton<SignInWithGoogleUseCase>(
-      () => SignInWithGoogleUseCaseImpl(
-        repository: getIt.get(),
-      ),
+      () => SignInWithGoogleUseCaseImpl(repository: getIt.get()),
     );
     getIt.registerLazySingleton<SignOutUseCase>(
-      () => SignOutUseCaseImpl(
-        repository: getIt.get(),
-      ),
+      () => SignOutUseCaseImpl(repository: getIt.get()),
     );
     getIt.registerLazySingleton<IsLoggedInUseCase>(
-      () => IsLoggedInUseCaseImpl(
-        repository: getIt.get(),
-      ),
+      () => IsLoggedInUseCaseImpl(repository: getIt.get()),
     );
+
+    // User
     getIt.registerLazySingleton<GetUserUseCase>(
-      () => GetUserUseCaseImpl(
-        repository: getIt.get(),
-      ),
+      () => GetUserUseCaseImpl(repository: getIt.get()),
+    );
+    getIt.registerLazySingleton<UpdateUserNameUseCase>(
+      () => UpdateUserNameUseCaseImpl(repository: getIt.get()),
     );
   }
 
   static void _configureCubits() {
-    getIt.registerFactory(
-      () => WelcomeCubit(),
-    );
-    getIt.registerFactory(
-      () => LoginCubit(
-        signInWithGoogleUseCase: getIt.get(),
-      ),
-    );
-    getIt.registerFactory(
-      () => HomeCubit(
-        getUserUseCase: getIt.get(),
-      ),
-    );
-    getIt.registerFactory(
-      () => AuthenticationCubit(
-        isLoggedInUseCase: getIt.get(),
-      ),
-    );
-    getIt.registerFactory(
-      () => NavigationCubit(),
-    );
+    getIt.registerFactory(() => WelcomeCubit());
+    getIt.registerFactory(() => LoginCubit(signInWithGoogleUseCase: getIt.get()));
+    getIt.registerFactory(() => HomeCubit(getUserUseCase: getIt.get()));
+    getIt.registerFactory(() => AuthenticationCubit(isLoggedInUseCase: getIt.get()));
+    getIt.registerFactory(() => NavigationCubit());
     getIt.registerFactory(
       () => ProfileCubit(
         signOutUseCase: getIt.get(),
+        getUserUseCase: getIt.get(),
+        updateUserNameUseCase: getIt.get(),
       ),
     );
   }

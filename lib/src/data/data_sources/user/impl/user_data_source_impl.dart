@@ -27,4 +27,26 @@ class UserDataSourceImpl implements UserDataSource {
       throw AppGenericException(message: 'Erro inesperado!');
     }
   }
+
+  @override
+  Future<void> updateUserName(String name) async {
+    try {
+      final User? user = _firebaseAuth.currentUser;
+
+      if (user != null) {
+        await user.updateDisplayName(name).timeout(const Duration(seconds: 5));
+      } else {
+        throw AppGenericException(message: 'Usuário não encontrado!');
+      }
+    } on FirebaseException catch (e) {
+      if (e.code == 'network-request-failed') {
+        throw AppGenericException(message: 'Sem conexão com a internet!');
+      }
+      throw AppGenericException(message: 'Erro inesperado no Firebase!');
+    } on AppGenericException catch (e) {
+      throw AppGenericException(message: e.message);
+    } catch (e) {
+      throw AppGenericException(message: 'Estamos passando por indisponibilidades!');
+    }
+  }
 }

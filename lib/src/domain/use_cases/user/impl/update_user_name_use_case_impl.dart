@@ -1,19 +1,18 @@
 import 'package:contact_auth_bloc/src/core/errors/app_exceptions.dart';
 import 'package:contact_auth_bloc/src/data/repositories/user/user_repository.dart';
-import 'package:contact_auth_bloc/src/domain/entities/user_entity.dart';
-import 'package:contact_auth_bloc/src/domain/use_cases/user/get_user_use_case.dart';
+import 'package:contact_auth_bloc/src/domain/use_cases/user/update_user_name_use_case.dart';
 
-class GetUserUseCaseImpl implements GetUserUseCase {
-  GetUserUseCaseImpl({
+class UpdateUserNameUseCaseImpl implements UpdateUserNameUseCase {
+  UpdateUserNameUseCaseImpl({
     required UserRepository repository,
   }) : _repository = repository;
 
   final UserRepository _repository;
 
   @override
-  UserEntity call() {
+  Future<void> call(String name) async {
     try {
-      return _repository.getUser();
+      return await _repository.updateUserName(name);
     } on AppGenericException catch (e) {
       throw AppGenericException(message: e.message);
     }
