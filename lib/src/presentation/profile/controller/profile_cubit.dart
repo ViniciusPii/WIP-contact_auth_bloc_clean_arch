@@ -23,16 +23,15 @@ class ProfileCubit extends Cubit<ProfileState> {
   Future<void> updateUserName(String name) async {
     try {
       emit(const ProfileStateUpdateUserLoading());
+
       await _updateUserNameUseCase(name);
-      emit(const ProfileStateUpdateUserSuccess());
+      emit(const ProfileStateUpdateUserSuccess(message: 'Nome alterado com sucesso!'));
     } on AppGenericException catch (e) {
       emit(ProfileStateUpdateUserError(message: e.message ?? ''));
-    } catch (e) {
-      emit(const ProfileStateUpdateUserError(message: 'Estamos passando por instabilidades'));
     }
   }
 
-  void getUser() async {
+  void getUser() {
     try {
       final UserEntity user = _getUserUseCase();
       emit(ProfileStateUserSuccess(user: user));
@@ -45,7 +44,7 @@ class ProfileCubit extends Cubit<ProfileState> {
     try {
       await _signOutUseCase();
     } on AppGenericException catch (e) {
-      emit(ProfileStateError(message: e.message ?? ''));
+      emit(ProfileStateSignOutError(message: e.message ?? ''));
     }
   }
 }

@@ -19,8 +19,6 @@ class LoginCubit extends Cubit<LoginState> {
       emit(const LoginStateSuccess());
     } on AppGenericException catch (e) {
       emit(LoginStateError(message: e.message ?? ''));
-    } on AppNetworkException catch (e) {
-      emit(LoginStateNetworkError(message: e.message ?? ''));
     }
   }
 }

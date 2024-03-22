@@ -1,22 +1,17 @@
 import 'package:contact_auth_bloc/src/core/theme/infra/app_dimension.dart';
 import 'package:contact_auth_bloc/src/core/ui/components/app_title.dart';
-import 'package:contact_auth_bloc/src/core/ui/components/loader_component.dart';
 import 'package:contact_auth_bloc/src/core/ui/components/spacing_page.dart';
-import 'package:contact_auth_bloc/src/presentation/profile/controller/profile_cubit.dart';
-import 'package:contact_auth_bloc/src/presentation/profile/controller/profile_state.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:validatorless/validatorless.dart';
 
 class ProfileModalWidget extends StatelessWidget {
   const ProfileModalWidget({
     super.key,
-    required this.bloc,
     required this.formKey,
     required this.controllerEC,
     required this.onChangeNameAction,
   });
 
-  final ProfileCubit bloc;
   final GlobalKey<FormState> formKey;
   final Function() onChangeNameAction;
   final TextEditingController controllerEC;
@@ -47,21 +42,20 @@ class ProfileModalWidget extends StatelessWidget {
                       label: Text('Nome'),
                       hintText: 'Ex Fulano',
                     ),
+                    textCapitalization: TextCapitalization.sentences,
+                    validator: Validatorless.required('Campo obrigatório!'),
                   ),
                   const SizedBox(
                     height: AppDimension.large,
                   ),
-                  BlocBuilder<ProfileCubit, ProfileState>(
-                    bloc: bloc,
-                    builder: (context, state) {
-                      return LoaderComponent(
-                        loading: state is ProfileStateUpdateUserLoading,
-                        child: ElevatedButton(
-                          onPressed: onChangeNameAction,
-                          child: const Text('Alterar'),
-                        ),
-                      );
+                  ElevatedButton(
+                    onPressed: () {
+                      bool isValid = formKey.currentState?.validate() ?? false;
+                      if (isValid) {
+                        onChangeNameAction();
+                      }
                     },
+                    child: const Text('Alterar'),
                   )
                 ],
               ),

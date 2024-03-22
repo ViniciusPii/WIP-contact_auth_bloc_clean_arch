@@ -4,6 +4,7 @@ import 'package:contact_auth_bloc/src/core/ui/components/app_label.dart';
 import 'package:contact_auth_bloc/src/core/ui/components/app_title.dart';
 import 'package:contact_auth_bloc/src/core/ui/components/snack_bar/snack_bar_component.dart';
 import 'package:contact_auth_bloc/src/core/ui/components/spacing_page.dart';
+import 'package:contact_auth_bloc/src/core/ui/components/three_bounce_component.dart';
 import 'package:contact_auth_bloc/src/presentation/profile/controller/profile_cubit.dart';
 import 'package:contact_auth_bloc/src/presentation/profile/controller/profile_state.dart';
 import 'package:contact_auth_bloc/src/presentation/profile/widgets/profile_modal_widget.dart';
@@ -45,15 +46,17 @@ class _ProfilePageState extends BaseBlocState<ProfilePage, ProfileCubit> {
                 return SnackBarComponent.info(context, message: state.message);
               }
 
-              if (state is ProfileStateError) {
-                return SnackBarComponent.info(context, message: state.message);
-              }
-
-              if (state is ProfileStateUserError) {
-                return SnackBarComponent.info(context, message: state.message);
+              if (state is ProfileStateUpdateUserSuccess) {
+                return SnackBarComponent.success(context, message: state.message);
               }
             },
             builder: (context, state) {
+              if (state is ProfileStateUpdateUserLoading || state is ProfileStateSignOutLoading) {
+                return const Center(
+                  child: ThreeBounceComponent(),
+                );
+              }
+
               if (state is ProfileStateUserSuccess) {
                 return Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -70,18 +73,14 @@ class _ProfilePageState extends BaseBlocState<ProfilePage, ProfileCubit> {
                       onPressed: () => {
                         showModalBottomSheet(
                           context: context,
-                          isDismissible: false,
-                          enableDrag: false,
                           isScrollControlled: true,
                           builder: (_) => ProfileModalWidget(
                             formKey: _formKey,
                             controllerEC: _nameEC,
-                            bloc: controller,
                             onChangeNameAction: () async {
-                              final NavigatorState navigator = Navigator.of(context);
+                              Navigator.of(context).pop();
                               await controller.updateUserName(_nameEC.text);
                               controller.getUser();
-                              navigator.pop();
                             },
                           ),
                         ),
