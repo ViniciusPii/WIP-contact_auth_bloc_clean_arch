@@ -1,13 +1,13 @@
 sealed class MainState {
   const MainState({
     required this.currentPage,
-    required this.hideNavigation,
+    required this.hideBottomNavigation,
   });
 
   final int currentPage;
-  final bool hideNavigation;
+  final bool hideBottomNavigation;
 }
 
 class MainNavigationState extends MainState {
-  MainNavigationState({required super.currentPage, required super.hideNavigation});
+  MainNavigationState({required super.currentPage, required super.hideBottomNavigation});
 }

@@ -8,6 +8,10 @@ class HomeStateInitial extends HomeState {
   const HomeStateInitial();
 }
 
+class HomeStateLoading extends HomeState {
+  const HomeStateLoading();
+}
+
 // Get User
 class HomeStateUserSucces extends HomeState {
   const HomeStateUserSucces({required this.user});
