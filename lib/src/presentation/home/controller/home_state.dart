@@ -8,14 +8,15 @@ class HomeStateInitial extends HomeState {
   const HomeStateInitial();
 }
 
-class HomeStateSuccess extends HomeState {
-  const HomeStateSuccess({required this.user});
+// Get User
+class HomeStateUserSucces extends HomeState {
+  const HomeStateUserSucces({required this.user});
 
   final UserEntity user;
 }
 
-class HomeStateError extends HomeState {
-  const HomeStateError({required this.message});
+class HomeStateUserError extends HomeState {
+  const HomeStateUserError({required this.message});
 
   final String message;
 }

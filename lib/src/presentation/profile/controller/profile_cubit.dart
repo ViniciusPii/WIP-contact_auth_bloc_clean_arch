@@ -24,6 +24,9 @@ class ProfileCubit extends Cubit<ProfileState> {
     try {
       emit(const ProfileStateUpdateUserLoading());
 
+      //TODO Apagar após os testes
+      await Future.delayed(const Duration(seconds: 3));
+
       await _updateUserNameUseCase(name);
       emit(const ProfileStateUpdateUserSuccess(message: 'Nome alterado com sucesso!'));
     } on AppGenericException catch (e) {

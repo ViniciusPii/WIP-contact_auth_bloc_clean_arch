@@ -27,10 +27,15 @@ class _HomePageState extends BaseBlocState<HomePage, HomeCubit> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: BlocBuilder<HomeCubit, HomeState>(
+        child: BlocConsumer<HomeCubit, HomeState>(
           bloc: controller,
+          listener: (context, state) {
+            if (state is HomeStateUserError) {
+              return SnackBarComponent.error(context, message: state.message);
+            }
+          },
           builder: (context, state) {
-            if (state is HomeStateSuccess) {
+            if (state is HomeStateUserSucces) {
               return SpacingPage(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -52,7 +57,7 @@ class _HomePageState extends BaseBlocState<HomePage, HomeCubit> {
       floatingActionButton: BlocConsumer<HomeCubit, HomeState>(
         bloc: controller,
         listener: (context, state) {
-          if (state is HomeStateError) {
+          if (state is HomeStateUserError) {
             return SnackBarComponent.error(context, message: state.message);
           }
         },

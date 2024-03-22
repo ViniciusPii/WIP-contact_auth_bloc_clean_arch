@@ -15,9 +15,9 @@ class HomeCubit extends Cubit<HomeState> {
   void getUser() {
     try {
       final UserEntity user = _getUserUseCase();
-      emit(HomeStateSuccess(user: user));
+      emit(HomeStateUserSucces(user: user));
     } on AppGenericException catch (e) {
-      emit(HomeStateError(message: e.message ?? ''));
+      emit(HomeStateUserError(message: e.message ?? ''));
     }
   }
 }
