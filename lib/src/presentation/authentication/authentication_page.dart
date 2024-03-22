@@ -27,7 +27,7 @@ class _AuthenticationPageState extends BaseBlocState<AuthenticationPage, Authent
         return switch (state) {
           AuthenticationStateInitial() => context.route(AppRoutes.welcome),
           AuthenticationStateAuthUnauthenticated() => context.route(AppRoutes.login),
-          AuthenticationStateAuthAuthenticated() => context.route(AppRoutes.navigationPage),
+          AuthenticationStateAuthAuthenticated() => context.route(AppRoutes.main),
         };
       },
     );

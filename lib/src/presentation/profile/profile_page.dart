@@ -1,5 +1,4 @@
 import 'package:contact_auth_bloc/src/core/theme/infra/app_dimension.dart';
-import 'package:contact_auth_bloc/src/core/ui/base_bloc_state.dart';
 import 'package:contact_auth_bloc/src/core/ui/components/app_label.dart';
 import 'package:contact_auth_bloc/src/core/ui/components/app_title.dart';
 import 'package:contact_auth_bloc/src/core/ui/components/snack_bar/snack_bar_component.dart';
@@ -12,20 +11,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ProfilePage extends StatefulWidget {
-  const ProfilePage({super.key});
+  const ProfilePage({
+    super.key,
+    required this.controller,
+  });
+
+  final ProfileCubit controller;
 
   @override
   State<ProfilePage> createState() => _ProfilePageState();
 }
 
-class _ProfilePageState extends BaseBlocState<ProfilePage, ProfileCubit> {
+class _ProfilePageState extends State<ProfilePage> {
   final _formKey = GlobalKey<FormState>();
   final _nameEC = TextEditingController();
 
   @override
-  void onReady(BuildContext context) {
-    super.onReady(context);
-    controller.getUser();
+  void initState() {
+    super.initState();
+    widget.controller.getUser();
   }
 
   @override
@@ -40,7 +44,7 @@ class _ProfilePageState extends BaseBlocState<ProfilePage, ProfileCubit> {
       child: SpacingPage(
         child: Scaffold(
           body: BlocConsumer<ProfileCubit, ProfileState>(
-            bloc: controller,
+            bloc: widget.controller,
             listener: (context, state) {
               if (state is ProfileStateUpdateUserError) {
                 return SnackBarComponent.info(context, message: state.message);
@@ -79,8 +83,8 @@ class _ProfilePageState extends BaseBlocState<ProfilePage, ProfileCubit> {
                             controllerEC: _nameEC,
                             onChangeNameAction: () async {
                               Navigator.of(context).pop();
-                              await controller.updateUserName(_nameEC.text);
-                              controller.getUser();
+                              await widget.controller.updateUserName(_nameEC.text);
+                              widget.controller.getUser();
                             },
                           ),
                         ),
@@ -88,7 +92,7 @@ class _ProfilePageState extends BaseBlocState<ProfilePage, ProfileCubit> {
                       child: const Text('Alterar dados'),
                     ),
                     TextButton(
-                      onPressed: () => controller.signOut(),
+                      onPressed: () => widget.controller.signOut(),
                       child: const Text('Deslogar'),
                     )
                   ],

@@ -19,7 +19,7 @@ import 'package:contact_auth_bloc/src/domain/use_cases/user/update_user_name_use
 import 'package:contact_auth_bloc/src/presentation/authentication/controller/authentication_cubit.dart';
 import 'package:contact_auth_bloc/src/presentation/home/controller/home_cubit.dart';
 import 'package:contact_auth_bloc/src/presentation/login/controller/login_cubit.dart';
-import 'package:contact_auth_bloc/src/presentation/navigation/controller/navigation_cubit.dart';
+import 'package:contact_auth_bloc/src/presentation/main/controller/main_cubit.dart';
 import 'package:contact_auth_bloc/src/presentation/profile/controller/profile_cubit.dart';
 import 'package:contact_auth_bloc/src/presentation/welcome/controller/welcome_cubit.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -94,7 +94,7 @@ class Inject {
     getIt.registerFactory(() => LoginCubit(signInWithGoogleUseCase: getIt.get()));
     getIt.registerFactory(() => HomeCubit(getUserUseCase: getIt.get()));
     getIt.registerFactory(() => AuthenticationCubit(isLoggedInUseCase: getIt.get()));
-    getIt.registerFactory(() => NavigationCubit());
+    getIt.registerFactory(() => MainCubit());
     getIt.registerFactory(
       () => ProfileCubit(
         signOutUseCase: getIt.get(),
