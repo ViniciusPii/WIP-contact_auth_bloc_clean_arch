@@ -16,9 +16,6 @@ class HomeCubit extends Cubit<HomeState> {
     try {
       emit(const HomeStateLoading());
 
-      //TODO Apagar após os testes
-      await Future.delayed(const Duration(seconds: 3));
-
       final UserEntity user = _getUserUseCase();
       emit(HomeStateUserSucces(user: user));
     } on AppGenericException catch (e) {

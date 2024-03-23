@@ -1,3 +1,4 @@
+import 'package:contact_auth_bloc/src/presentation/add_contact/add_contact_page.dart';
 import 'package:contact_auth_bloc/src/presentation/authentication/authentication_page.dart';
 import 'package:contact_auth_bloc/src/presentation/login/login_page.dart';
 import 'package:contact_auth_bloc/src/presentation/main/main_page.dart';
@@ -10,12 +11,14 @@ class AppRoutes {
   static String main = '/main';
   static String login = '/login';
   static String welcome = '/welcome';
+  static String addContact = '/add/coctact';
   static String authentication = "/authentication";
 
   static Map<String, WidgetBuilder> routes = {
+    main: (context) => const MainPage(),
     login: (context) => const LoginPage(),
     welcome: (context) => const WelcomePage(),
-    main: (context) => const MainPage(),
+    addContact: (context) => const AddContactPage(),
     authentication: (context) => const AuthenticationPage(),
   };
 }

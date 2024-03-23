@@ -16,6 +16,7 @@ import 'package:contact_auth_bloc/src/domain/use_cases/user/get_user_use_case.da
 import 'package:contact_auth_bloc/src/domain/use_cases/user/impl/get_user_use_case_impl.dart';
 import 'package:contact_auth_bloc/src/domain/use_cases/user/impl/update_user_name_use_case_impl.dart';
 import 'package:contact_auth_bloc/src/domain/use_cases/user/update_user_name_use_case.dart';
+import 'package:contact_auth_bloc/src/presentation/add_contact/controller/add_contact_cubit.dart';
 import 'package:contact_auth_bloc/src/presentation/authentication/controller/authentication_cubit.dart';
 import 'package:contact_auth_bloc/src/presentation/home/controller/home_cubit.dart';
 import 'package:contact_auth_bloc/src/presentation/login/controller/login_cubit.dart';
@@ -90,11 +91,14 @@ class Inject {
   }
 
   static void _configureCubits() {
+    // Auth
     getIt.registerFactory(() => WelcomeCubit());
     getIt.registerFactory(() => LoginCubit(signInWithGoogleUseCase: getIt.get()));
-    getIt.registerFactory(() => HomeCubit(getUserUseCase: getIt.get()));
     getIt.registerFactory(() => AuthenticationCubit(isLoggedInUseCase: getIt.get()));
+
+    // Main
     getIt.registerFactory(() => MainCubit());
+    getIt.registerFactory(() => HomeCubit(getUserUseCase: getIt.get()));
     getIt.registerFactory(
       () => ProfileCubit(
         signOutUseCase: getIt.get(),
@@ -102,5 +106,8 @@ class Inject {
         updateUserNameUseCase: getIt.get(),
       ),
     );
+
+    // Contacts
+    getIt.registerFactory(() => AddContactCubit());
   }
 }

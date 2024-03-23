@@ -5,6 +5,7 @@ import 'package:contact_auth_bloc/src/core/ui/components/spacing_page.dart';
 import 'package:contact_auth_bloc/src/core/ui/components/three_bounce_component.dart';
 import 'package:contact_auth_bloc/src/presentation/home/controller/home_cubit.dart';
 import 'package:contact_auth_bloc/src/presentation/home/controller/home_state.dart';
+import 'package:contact_auth_bloc/src/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -52,8 +53,10 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             floatingActionButton: FloatingActionButton(
-              onPressed: () => {},
-              child: const Icon(Icons.logout_rounded),
+              onPressed: () => {
+                Navigator.of(context).pushNamed(AppRoutes.addContact),
+              },
+              child: const Icon(Icons.add),
             ),
           );
         }
