@@ -1,10 +1,13 @@
 import 'package:contact_auth_bloc/src/core/theme/infra/app_dimension.dart';
 import 'package:contact_auth_bloc/src/core/ui/base_bloc_state.dart';
-import 'package:contact_auth_bloc/src/core/ui/components/snack_bar/snack_bar_component.dart';
+import 'package:contact_auth_bloc/src/core/ui/components/loader_component.dart';
 import 'package:contact_auth_bloc/src/core/ui/components/spacing_page.dart';
 import 'package:contact_auth_bloc/src/core/utils/masks.dart';
+import 'package:contact_auth_bloc/src/domain/entities/contact_entity.dart';
 import 'package:contact_auth_bloc/src/presentation/add_contact/controller/add_contact_cubit.dart';
+import 'package:contact_auth_bloc/src/presentation/add_contact/controller/add_contact_state.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:validatorless/validatorless.dart';
 
 class AddContactPage extends StatefulWidget {
@@ -68,16 +71,30 @@ class _AddContactPageState extends BaseBlocState<AddContactPage, AddContactCubit
                 const SizedBox(
                   height: AppDimension.mega,
                 ),
-                ElevatedButton(
-                  onPressed: () {
-                    if (_formKey.currentState?.validate() ?? false) {
-                      SnackBarComponent.success(
-                        context,
-                        message: '${_nameEC.text} - ${Masks.phoneMask.unMaskText(_phoneEC.text)}',
-                      );
-                    }
+                BlocBuilder<AddContactCubit, AddContactState>(
+                  bloc: controller,
+                  builder: (context, state) {
+                    return LoaderComponent(
+                      loading: state is AddContactStateLoading,
+                      child: ElevatedButton(
+                        onPressed: () async {
+                          final NavigatorState navigator = Navigator.of(context);
+
+                          if (_formKey.currentState?.validate() ?? false) {
+                            await controller.addContact(
+                              ContactEntity(
+                                name: _nameEC.text.trim(),
+                                phoneNumber: _phoneEC.text.trim(),
+                              ),
+                            );
+
+                            navigator.pop();
+                          }
+                        },
+                        child: const Text('Adicionar contato'),
+                      ),
+                    );
                   },
-                  child: const Text('Adicionar contato'),
                 ),
               ],
             ),
