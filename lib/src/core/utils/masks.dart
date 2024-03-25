@@ -3,7 +3,7 @@ import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 class Masks {
   Masks._();
 
-  static final cepMask = MaskTextInputFormatter(mask: '(##) #####-####');
+  static final phoneMask = MaskTextInputFormatter(mask: '(##) #####-####');
 }
 
 extension MaskExtension on MaskTextInputFormatter {

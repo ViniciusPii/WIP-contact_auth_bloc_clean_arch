@@ -56,7 +56,7 @@ class _AddContactPageState extends BaseBlocState<AddContactPage, AddContactCubit
                 TextFormField(
                   controller: _phoneEC,
                   keyboardType: TextInputType.phone,
-                  inputFormatters: [Masks.cepMask],
+                  inputFormatters: [Masks.phoneMask],
                   validator: Validatorless.multiple([
                     Validatorless.required('Campo obrigatório'),
                   ]),
@@ -73,7 +73,7 @@ class _AddContactPageState extends BaseBlocState<AddContactPage, AddContactCubit
                     if (_formKey.currentState?.validate() ?? false) {
                       SnackBarComponent.success(
                         context,
-                        message: '${_nameEC.text} - ${Masks.cepMask.unMaskText(_phoneEC.text)}',
+                        message: '${_nameEC.text} - ${Masks.phoneMask.unMaskText(_phoneEC.text)}',
                       );
                     }
                   },
