@@ -1,3 +1,5 @@
+import 'package:contact_auth_bloc/src/core/theme/app_styles.dart';
+import 'package:contact_auth_bloc/src/core/theme/infra/app_colors.dart';
 import 'package:contact_auth_bloc/src/core/theme/infra/app_dimension.dart';
 import 'package:contact_auth_bloc/src/core/ui/components/app_label.dart';
 import 'package:contact_auth_bloc/src/core/ui/components/app_title.dart';
@@ -23,7 +25,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    widget.controller.getData();
+    widget.controller.getHomeData();
   }
 
   @override
@@ -56,24 +58,16 @@ class _HomePageState extends State<HomePage> {
                     const SizedBox(
                       height: AppDimension.large,
                     ),
-                    ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: state.contacts.length,
-                      itemBuilder: (context, index) {
-                        final ContactEntity contact = state.contacts[index];
+                    Expanded(
+                      child: ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: state.contacts.length,
+                        itemBuilder: (context, index) {
+                          final ContactEntity contact = state.contacts[index];
 
-                        return ListTile(
-                          title: AppTitle(
-                            title: contact.name,
-                            type: TitleType.medium,
-                          ),
-                          subtitle: AppLabel(
-                            isCenter: false,
-                            type: LabelType.medium,
-                            label: contact.phoneNumber,
-                          ),
-                        );
-                      },
+                          return _BuildCard(contact: contact);
+                        },
+                      ),
                     )
                   ],
                 ),
@@ -90,6 +84,55 @@ class _HomePageState extends State<HomePage> {
 
         return const SizedBox.shrink();
       },
+    );
+  }
+}
+
+class _BuildCard extends StatelessWidget {
+  const _BuildCard({
+    required this.contact,
+  });
+
+  final ContactEntity contact;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      leading: CircleAvatar(
+        backgroundColor: AppStyles.primary,
+        child: AppTitle(
+          title: contact.name.substring(0, 1),
+          color: AppColors.white,
+        ),
+      ),
+      title: AppTitle(
+        title: contact.name,
+        type: TitleType.medium,
+      ),
+      subtitle: AppLabel(
+        isCenter: false,
+        type: LabelType.medium,
+        label: contact.phoneNumber,
+      ),
+      trailing: Expanded(
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            IconButton(
+              onPressed: () {},
+              icon: const Icon(
+                Icons.edit_note,
+              ),
+            ),
+            IconButton(
+              onPressed: () {},
+              icon: const Icon(
+                Icons.delete_outlined,
+              ),
+            )
+          ],
+        ),
+      ),
     );
   }
 }

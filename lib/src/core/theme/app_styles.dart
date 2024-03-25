@@ -7,7 +7,7 @@ class AppStyles {
   AppStyles._();
 
   //Colors
-  static const Color primary = AppColors.blue800;
+  static const Color primary = AppColors.blue700;
   static const Color primaryDark = AppColors.blue900;
   static const Color primaryLight = AppColors.blue;
   static const Color secondary = AppColors.orange;

@@ -26,7 +26,7 @@ class ContactsDataSourceImpl implements ContactsDataSource {
   @override
   Stream<List<ContactEntity>> getContacts(String userId) {
     try {
-      return _contactsCollection(userId).snapshots().map((snapshot) => snapshot.docs
+      return _contactsCollection(userId).orderBy('name').snapshots().map((snapshot) => snapshot.docs
           .map((doc) => ContactEntityAdapter.fromMap(doc.data() as Map<String, dynamic>))
           .toList());
     } catch (e) {

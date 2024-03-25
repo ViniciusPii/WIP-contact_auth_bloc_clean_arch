@@ -16,7 +16,7 @@ class HomeCubit extends Cubit<HomeState> {
   final GetUserUseCase _getUserUseCase;
   final GetContactsUseCase _getContactsUseCase;
 
-  void getData() async {
+  void getHomeData() async {
     try {
       emit(const HomeStateLoading());
 
