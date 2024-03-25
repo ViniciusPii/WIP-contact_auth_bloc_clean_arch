@@ -1,3 +1,4 @@
+import 'package:contact_auth_bloc/src/domain/entities/contact_entity.dart';
 import 'package:contact_auth_bloc/src/domain/entities/user_entity.dart';
 
 sealed class HomeState {
@@ -13,10 +14,14 @@ class HomeStateLoading extends HomeState {
 }
 
 // Get User
-class HomeStateUserSucces extends HomeState {
-  const HomeStateUserSucces({required this.user});
+class HomeStateSucces extends HomeState {
+  const HomeStateSucces({
+    required this.user,
+    required this.contacts,
+  });
 
   final UserEntity user;
+  final List<ContactEntity> contacts;
 }
 
 class HomeStateUserError extends HomeState {

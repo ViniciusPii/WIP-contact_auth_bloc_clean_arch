@@ -18,7 +18,9 @@ import 'package:contact_auth_bloc/src/domain/use_cases/auth/is_logged_in_use_cas
 import 'package:contact_auth_bloc/src/domain/use_cases/auth/sign_in_with_google_use_case.dart';
 import 'package:contact_auth_bloc/src/domain/use_cases/auth/sign_out_use_case.dart';
 import 'package:contact_auth_bloc/src/domain/use_cases/contacts/add_contact_use_case.dart';
+import 'package:contact_auth_bloc/src/domain/use_cases/contacts/get_contacts_use_case.dart';
 import 'package:contact_auth_bloc/src/domain/use_cases/contacts/impl/add_contact_use_case_impl.dart';
+import 'package:contact_auth_bloc/src/domain/use_cases/contacts/impl/get_contacts_use_case_impl.dart';
 import 'package:contact_auth_bloc/src/domain/use_cases/user/get_user_use_case.dart';
 import 'package:contact_auth_bloc/src/domain/use_cases/user/impl/get_user_use_case_impl.dart';
 import 'package:contact_auth_bloc/src/domain/use_cases/user/impl/update_user_name_use_case_impl.dart';
@@ -114,6 +116,12 @@ class Inject {
         getUserUseCase: getIt.get(),
       ),
     );
+    getIt.registerLazySingleton<GetContactsUseCase>(
+      () => GetContactsUseCaseImpl(
+        repository: getIt.get(),
+        getUserUseCase: getIt.get(),
+      ),
+    );
   }
 
   static void _configureCubits() {
@@ -124,7 +132,12 @@ class Inject {
 
     // Main
     getIt.registerFactory(() => MainCubit());
-    getIt.registerFactory(() => HomeCubit(getUserUseCase: getIt.get()));
+    getIt.registerFactory(
+      () => HomeCubit(
+        getUserUseCase: getIt.get(),
+        getContactsUseCase: getIt.get(),
+      ),
+    );
     getIt.registerFactory(
       () => ProfileCubit(
         signOutUseCase: getIt.get(),

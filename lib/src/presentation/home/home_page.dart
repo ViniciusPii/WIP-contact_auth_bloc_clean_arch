@@ -3,6 +3,7 @@ import 'package:contact_auth_bloc/src/core/ui/components/app_label.dart';
 import 'package:contact_auth_bloc/src/core/ui/components/app_title.dart';
 import 'package:contact_auth_bloc/src/core/ui/components/spacing_page.dart';
 import 'package:contact_auth_bloc/src/core/ui/components/three_bounce_component.dart';
+import 'package:contact_auth_bloc/src/domain/entities/contact_entity.dart';
 import 'package:contact_auth_bloc/src/presentation/home/controller/home_cubit.dart';
 import 'package:contact_auth_bloc/src/presentation/home/controller/home_state.dart';
 import 'package:contact_auth_bloc/src/routes/app_routes.dart';
@@ -22,7 +23,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    widget.controller.getUser();
+    widget.controller.getData();
   }
 
   @override
@@ -36,7 +37,7 @@ class _HomePageState extends State<HomePage> {
           );
         }
 
-        if (state is HomeStateUserSucces) {
+        if (state is HomeStateSucces) {
           return Scaffold(
             body: SafeArea(
               child: SpacingPage(
@@ -47,7 +48,33 @@ class _HomePageState extends State<HomePage> {
                       height: AppDimension.large,
                     ),
                     const AppLabel(label: 'Olá!'),
-                    AppTitle(title: state.user.name)
+                    AppTitle(title: state.user.name),
+                    const SizedBox(
+                      height: AppDimension.jumbo,
+                    ),
+                    const AppTitle(title: 'Confira seus contatos!'),
+                    const SizedBox(
+                      height: AppDimension.large,
+                    ),
+                    ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: state.contacts.length,
+                      itemBuilder: (context, index) {
+                        final ContactEntity contact = state.contacts[index];
+
+                        return ListTile(
+                          title: AppTitle(
+                            title: contact.name,
+                            type: TitleType.medium,
+                          ),
+                          subtitle: AppLabel(
+                            isCenter: false,
+                            type: LabelType.medium,
+                            label: contact.phoneNumber,
+                          ),
+                        );
+                      },
+                    )
                   ],
                 ),
               ),

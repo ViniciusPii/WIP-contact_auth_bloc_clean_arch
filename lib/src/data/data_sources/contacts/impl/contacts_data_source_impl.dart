@@ -22,4 +22,15 @@ class ContactsDataSourceImpl implements ContactsDataSource {
       AppGenericException(message: 'Erro ao cadastrar contato!');
     }
   }
+
+  @override
+  Stream<List<ContactEntity>> getContacts(String userId) {
+    try {
+      return _contactsCollection(userId).snapshots().map((snapshot) => snapshot.docs
+          .map((doc) => ContactEntityAdapter.fromMap(doc.data() as Map<String, dynamic>))
+          .toList());
+    } catch (e) {
+      throw AppGenericException(message: 'Erro ao carregar contetos');
+    }
+  }
 }

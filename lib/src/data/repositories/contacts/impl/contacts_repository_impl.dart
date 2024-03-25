@@ -18,4 +18,13 @@ class ContactsRepositoryImpl implements ContactsRepository {
       throw AppGenericException(message: e.message);
     }
   }
+
+  @override
+  Stream<List<ContactEntity>> getContacts(String userId) {
+    try {
+      return _dataSource.getContacts(userId);
+    } on AppGenericException catch (e) {
+      throw AppGenericException(message: e.message);
+    }
+  }
 }
