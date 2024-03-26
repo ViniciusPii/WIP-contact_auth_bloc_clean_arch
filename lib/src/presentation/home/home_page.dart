@@ -114,24 +114,24 @@ class _BuildCard extends StatelessWidget {
         type: LabelType.medium,
         label: contact.phoneNumber,
       ),
-      trailing: Expanded(
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                Icons.edit_note,
-              ),
+      trailing: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          IconButton(
+            // TODO implementar
+            onPressed: () {},
+            icon: const Icon(
+              Icons.edit_note,
             ),
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                Icons.delete_outlined,
-              ),
-            )
-          ],
-        ),
+          ),
+          IconButton(
+            // TODO implementar
+            onPressed: () {},
+            icon: const Icon(
+              Icons.delete_outlined,
+            ),
+          )
+        ],
       ),
     );
   }
