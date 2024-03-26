@@ -73,7 +73,7 @@ class _MainPageState extends BaseBlocState<MainPage, MainCubit> {
           bloc: homeController,
           listener: (context, state) {
             controller.changeBottomNavigator(
-              isHide: state is HomeStateLoading,
+              isHide: state is HomeStateLoading || state is HomeStateError,
               pageIndex: index,
             );
           },
