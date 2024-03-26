@@ -24,7 +24,7 @@ class DelayTween extends Tween<double> {
 class ThreeBounceComponent extends StatefulWidget {
   const ThreeBounceComponent({
     super.key,
-    this.size = AppDimension.xxl,
+    this.size = AppDimension.big,
     this.color = AppStyles.primary,
     this.duration = const Duration(milliseconds: 1400),
     this.itemBuilder,

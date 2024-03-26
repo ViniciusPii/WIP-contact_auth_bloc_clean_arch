@@ -29,7 +29,7 @@ class LoaderComponent extends StatelessWidget {
         height: height ?? AppDimension.jumbo,
         child: ThreeBounceComponent(
           color: color,
-          size: size ?? AppDimension.xxl,
+          size: size ?? AppDimension.big,
         ),
       ),
     );

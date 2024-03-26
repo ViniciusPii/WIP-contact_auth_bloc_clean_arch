@@ -1,3 +1,4 @@
+import 'package:contact_auth_bloc/src/core/errors/ui/error_page.dart';
 import 'package:contact_auth_bloc/src/core/theme/app_styles.dart';
 import 'package:contact_auth_bloc/src/core/theme/infra/app_colors.dart';
 import 'package:contact_auth_bloc/src/core/theme/infra/app_dimension.dart';
@@ -37,6 +38,10 @@ class _HomePageState extends State<HomePage> {
           return const Center(
             child: ThreeBounceComponent(),
           );
+        }
+
+        if (state is HomeStateError) {
+          return ErrorPage(retryAction: () => widget.controller.getHomeData());
         }
 
         if (state is HomeStateSucces) {

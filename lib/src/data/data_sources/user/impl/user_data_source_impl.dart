@@ -24,7 +24,7 @@ class UserDataSourceImpl implements UserDataSource {
     } on AppGenericException catch (e) {
       throw AppGenericException(message: e.message);
     } catch (e) {
-      throw AppGenericException(message: 'Erro inesperado!');
+      throw AppGenericException(message: 'Algo deu errado! Tente Novamente');
     }
   }
 

@@ -1,6 +1,7 @@
 import 'package:contact_auth_bloc/src/core/theme/infra/app_dimension.dart';
 import 'package:contact_auth_bloc/src/core/ui/base_bloc_state.dart';
 import 'package:contact_auth_bloc/src/core/ui/components/loader_component.dart';
+import 'package:contact_auth_bloc/src/core/ui/components/snack_bar/snack_bar_component.dart';
 import 'package:contact_auth_bloc/src/core/ui/components/spacing_page.dart';
 import 'package:contact_auth_bloc/src/core/utils/masks.dart';
 import 'package:contact_auth_bloc/src/domain/entities/contact_entity.dart';
@@ -71,8 +72,16 @@ class _AddContactPageState extends BaseBlocState<AddContactPage, AddContactCubit
                 const SizedBox(
                   height: AppDimension.mega,
                 ),
-                BlocBuilder<AddContactCubit, AddContactState>(
+                BlocConsumer<AddContactCubit, AddContactState>(
                   bloc: controller,
+                  listener: (context, state) {
+                    if (state is AddContactStateError) {
+                      return SnackBarComponent.error(
+                        context,
+                        message: state.message,
+                      );
+                    }
+                  },
                   builder: (context, state) {
                     return LoaderComponent(
                       loading: state is AddContactStateLoading,

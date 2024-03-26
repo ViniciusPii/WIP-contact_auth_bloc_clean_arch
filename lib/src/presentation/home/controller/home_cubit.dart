@@ -25,8 +25,8 @@ class HomeCubit extends Cubit<HomeState> {
       _getContactsUseCase().listen((contacts) {
         emit(HomeStateSucces(user: user, contacts: contacts));
       });
-    } on AppGenericException catch (e) {
-      emit(HomeStateUserError(message: e.message ?? ''));
+    } on AppGenericException catch (_) {
+      emit(const HomeStateError());
     }
   }
 }

@@ -44,7 +44,7 @@ class _LoginPageState extends BaseBlocState<LoginPage, LoginCubit> {
                   'Que legal ter você por aqui! Faça seu login utilizando o Google, é rápido, prático, seguro e você poderá desfrutar do nosso app!',
             ),
             const SizedBox(
-              height: AppDimension.xxl,
+              height: AppDimension.big,
             ),
             BlocConsumer<LoginCubit, LoginState>(
               bloc: controller,

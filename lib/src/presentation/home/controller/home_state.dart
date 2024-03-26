@@ -13,7 +13,6 @@ class HomeStateLoading extends HomeState {
   const HomeStateLoading();
 }
 
-// Get User
 class HomeStateSucces extends HomeState {
   const HomeStateSucces({
     required this.user,
@@ -24,8 +23,6 @@ class HomeStateSucces extends HomeState {
   final List<ContactEntity> contacts;
 }
 
-class HomeStateUserError extends HomeState {
-  const HomeStateUserError({required this.message});
-
-  final String message;
+class HomeStateError extends HomeState {
+  const HomeStateError();
 }
