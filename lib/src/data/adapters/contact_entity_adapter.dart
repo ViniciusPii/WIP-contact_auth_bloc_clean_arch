@@ -1,10 +1,11 @@
 import 'package:contact_auth_bloc/src/domain/entities/contact_entity.dart';
 
 extension ContactEntityAdapter on ContactEntity {
-  static ContactEntity fromMap(Map<String, dynamic> map) {
+  static ContactEntity fromMap(Map<String, dynamic> data, String? id) {
     return ContactEntity(
-      name: map['name'] ?? '',
-      phoneNumber: map['phoneNumber'] ?? '',
+      id: id ?? '',
+      name: data['name'] ?? '',
+      phoneNumber: data['phoneNumber'] ?? '',
     );
   }
 

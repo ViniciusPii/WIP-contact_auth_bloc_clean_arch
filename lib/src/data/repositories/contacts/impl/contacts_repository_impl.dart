@@ -27,4 +27,13 @@ class ContactsRepositoryImpl implements ContactsRepository {
       throw AppGenericException(message: e.message);
     }
   }
+
+  @override
+  Future<void> deleteContact(ContactEntity contact, String userId) {
+    try {
+      return _dataSource.deleteContact(contact, userId);
+    } on AppGenericException catch (e) {
+      throw AppGenericException(message: e.message);
+    }
+  }
 }

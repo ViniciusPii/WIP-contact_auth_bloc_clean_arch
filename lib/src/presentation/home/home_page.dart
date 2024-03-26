@@ -70,7 +70,10 @@ class _HomePageState extends State<HomePage> {
                         itemBuilder: (context, index) {
                           final ContactEntity contact = state.contacts[index];
 
-                          return _BuildCard(contact: contact);
+                          return _BuildCard(
+                            contact: contact,
+                            deleteAction: () => widget.controller.deleteContact(contact),
+                          );
                         },
                       ),
                     )
@@ -96,9 +99,11 @@ class _HomePageState extends State<HomePage> {
 class _BuildCard extends StatelessWidget {
   const _BuildCard({
     required this.contact,
+    required this.deleteAction,
   });
 
   final ContactEntity contact;
+  final Function() deleteAction;
 
   @override
   Widget build(BuildContext context) {
@@ -131,9 +136,10 @@ class _BuildCard extends StatelessWidget {
           ),
           IconButton(
             // TODO implementar
-            onPressed: () {},
+            onPressed: deleteAction,
             icon: const Icon(
               Icons.delete_outlined,
+              color: AppColors.red,
             ),
           )
         ],

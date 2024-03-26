@@ -26,11 +26,20 @@ class ContactsDataSourceImpl implements ContactsDataSource {
   @override
   Stream<List<ContactEntity>> getContacts(String userId) {
     try {
-      return _contactsCollection(userId).orderBy('name').snapshots().map((snapshot) => snapshot.docs
-          .map((doc) => ContactEntityAdapter.fromMap(doc.data() as Map<String, dynamic>))
+      return _contactsCollection(userId).orderBy('name').snapshots().map((snap) => snap.docs
+          .map((doc) => ContactEntityAdapter.fromMap(doc.data() as Map<String, dynamic>, doc.id))
           .toList());
     } catch (e) {
-      throw AppGenericException(message: 'Erro ao carregar contetos');
+      throw AppGenericException(message: 'Erro ao carregar contatos!');
+    }
+  }
+
+  @override
+  Future<void> deleteContact(ContactEntity contact, String userId) async {
+    try {
+      await _contactsCollection(userId).doc(contact.id).delete();
+    } catch (e) {
+      throw AppGenericException(message: 'Erro ao carregar contatos!');
     }
   }
 }
