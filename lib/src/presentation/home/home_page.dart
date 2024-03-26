@@ -12,6 +12,7 @@ import 'package:contact_auth_bloc/src/presentation/home/controller/home_state.da
 import 'package:contact_auth_bloc/src/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key, required this.controller});
@@ -59,24 +60,52 @@ class _HomePageState extends State<HomePage> {
                     const SizedBox(
                       height: AppDimension.jumbo,
                     ),
-                    const AppTitle(title: 'Confira seus contatos!'),
-                    const SizedBox(
-                      height: AppDimension.large,
-                    ),
-                    Expanded(
-                      child: ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: state.contacts.length,
-                        itemBuilder: (context, index) {
-                          final ContactEntity contact = state.contacts[index];
+                    state.contacts.isEmpty
+                        ? Expanded(
+                            child: Column(
+                              children: [
+                                SvgPicture.asset(
+                                  'assets/empty.svg',
+                                  width: 350,
+                                  height: 350,
+                                ),
+                                const SizedBox(
+                                  height: AppDimension.medium,
+                                ),
+                                const AppTitle(title: 'Nada por aqui!'),
+                                const SizedBox(
+                                  height: AppDimension.medium,
+                                ),
+                                const AppLabel(
+                                  label:
+                                      'Não se preocupe! Assim que você cadastrar o seu primeiro contato, logo ele aparecerá por aqui!',
+                                )
+                              ],
+                            ),
+                          )
+                        : Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const AppTitle(title: 'Confira seus contatos!'),
+                                const SizedBox(
+                                  height: AppDimension.large,
+                                ),
+                                ListView.builder(
+                                  shrinkWrap: true,
+                                  itemCount: state.contacts.length,
+                                  itemBuilder: (context, index) {
+                                    final ContactEntity contact = state.contacts[index];
 
-                          return _BuildCard(
-                            contact: contact,
-                            deleteAction: () => widget.controller.deleteContact(contact),
-                          );
-                        },
-                      ),
-                    )
+                                    return _BuildCard(
+                                      contact: contact,
+                                      deleteAction: () => widget.controller.deleteContact(contact),
+                                    );
+                                  },
+                                ),
+                              ],
+                            ),
+                          ),
                   ],
                 ),
               ),

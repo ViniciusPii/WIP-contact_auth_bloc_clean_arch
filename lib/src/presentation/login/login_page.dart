@@ -27,7 +27,7 @@ class _LoginPageState extends BaseBlocState<LoginPage, LoginCubit> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SvgPicture.asset(
-              'assets/login_svg.svg',
+              'assets/login.svg',
               height: 320,
             ),
             const SizedBox(
