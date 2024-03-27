@@ -77,7 +77,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Expanded _buildContactData(List<ContactEntity> contacts) {
+  Widget _buildContactData(List<ContactEntity> contacts) {
     return Expanded(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -106,7 +106,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Expanded _buildContactEmpty() {
+  Widget _buildContactEmpty() {
     return Expanded(
       child: Center(
         child: SingleChildScrollView(
