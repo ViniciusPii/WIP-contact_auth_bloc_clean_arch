@@ -13,8 +13,10 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<bool> signInWithGoogle() async {
     try {
       return await _dataSource.signInWithGoogle();
-    } on DeprecatedAppGenericException catch (e) {
-      throw DeprecatedAppGenericException(message: e.message);
+    } on AppNetworkMessageException catch (e) {
+      throw AppNetworkMessageException(message: e.message);
+    } on AppMessageException catch (e) {
+      throw AppMessageException(message: e.message);
     }
   }
 

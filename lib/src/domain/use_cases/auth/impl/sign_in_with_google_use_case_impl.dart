@@ -13,8 +13,10 @@ class SignInWithGoogleUseCaseImpl implements SignInWithGoogleUseCase {
   Future<bool> call() async {
     try {
       return await _repository.signInWithGoogle();
-    } on DeprecatedAppGenericException catch (e) {
-      throw DeprecatedAppGenericException(message: e.message);
+    } on AppNetworkMessageException catch (e) {
+      throw AppNetworkMessageException(message: e.message);
+    } on AppMessageException catch (e) {
+      throw AppMessageException(message: e.message);
     }
   }
 }

@@ -18,18 +18,29 @@ class AuthDataSourceImpl implements AuthDataSource {
     try {
       final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
 
-      final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
+      if (googleUser == null) {
+        throw AppMessageException(message: 'Login cancelado pelo usuário!');
+      }
+
+      final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
 
       final credential = GoogleAuthProvider.credential(
-        accessToken: googleAuth?.accessToken,
-        idToken: googleAuth?.idToken,
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
       );
 
-      await _firebaseAuth.signInWithCredential(credential);
+      await _firebaseAuth.signInWithCredential(credential).timeout(const Duration(seconds: 5));
 
       return true;
+    } on AppMessageException catch (e) {
+      throw AppMessageException(message: e.message);
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'network-request-failed') {
+        throw AppNetworkMessageException(message: 'Verifique a sua conexão!');
+      }
+      throw AppMessageException(message: 'Algo deu errado! Tente novamente!');
     } catch (e) {
-      throw DeprecatedAppGenericException(message: "Erro ao realizar Login!");
+      throw AppMessageException(message: 'Algo deu errado! Tente novamente!');
     }
   }
 

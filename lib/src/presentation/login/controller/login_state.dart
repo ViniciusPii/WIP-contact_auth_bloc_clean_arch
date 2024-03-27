@@ -19,3 +19,9 @@ class LoginStateError extends LoginState {
 
   final String message;
 }
+
+class LoginStateNetworkError extends LoginState {
+  const LoginStateNetworkError({required this.message});
+
+  final String message;
+}

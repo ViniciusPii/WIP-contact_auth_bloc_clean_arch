@@ -55,6 +55,13 @@ class _LoginPageState extends BaseBlocState<LoginPage, LoginCubit> {
                     message: state.message,
                   );
                 }
+
+                if (state is LoginStateNetworkError) {
+                  return SnackBarComponent.info(
+                    context,
+                    message: state.message,
+                  );
+                }
               },
               builder: (context, state) {
                 return LoaderComponent(
