@@ -33,8 +33,8 @@ class AuthRepositoryImpl implements AuthRepository {
   Stream<bool> isLoggedIn() {
     try {
       return _dataSource.isLoggedIn();
-    } on DeprecatedAppGenericException catch (e) {
-      throw DeprecatedAppGenericException(message: e.message);
+    } on AppGenericException catch (_) {
+      throw AppGenericException();
     }
   }
 }

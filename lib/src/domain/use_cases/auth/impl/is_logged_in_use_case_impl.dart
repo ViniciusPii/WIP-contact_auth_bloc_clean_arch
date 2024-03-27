@@ -13,8 +13,8 @@ class IsLoggedInUseCaseImpl implements IsLoggedInUseCase {
   Stream<bool> call() {
     try {
       return _repository.isLoggedIn();
-    } on DeprecatedAppGenericException catch (e) {
-      throw DeprecatedAppGenericException(message: e.message);
+    } on AppGenericException catch (_) {
+      throw AppGenericException();
     }
   }
 }

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:contact_auth_bloc/src/core/errors/app_exceptions.dart';
 import 'package:contact_auth_bloc/src/domain/use_cases/auth/is_logged_in_use_case.dart';
 import 'package:contact_auth_bloc/src/presentation/authentication/controller/authentication_state.dart';
 
@@ -17,15 +18,19 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
   void isLoggedIn() async {
     await Future.delayed(const Duration(seconds: 2));
 
-    _loginSubscription = _isLoggedInUseCase().listen(
-      (user) {
-        if (user) {
-          emit(const AuthenticationStateAuthAuthenticated());
-        } else {
-          emit(const AuthenticationStateAuthUnauthenticated());
-        }
-      },
-    );
+    try {
+      _loginSubscription = _isLoggedInUseCase().listen(
+        (user) {
+          if (user) {
+            emit(const AuthenticationStateAuthAuthenticated());
+          } else {
+            emit(const AuthenticationStateAuthUnauthenticated());
+          }
+        },
+      );
+    } on AppGenericException catch (_) {
+      emit(const AuthenticationStateError());
+    }
   }
 
   @override

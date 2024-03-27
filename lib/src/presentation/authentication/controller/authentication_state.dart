@@ -13,3 +13,7 @@ class AuthenticationStateAuthAuthenticated extends AuthenticationState {
 class AuthenticationStateAuthUnauthenticated extends AuthenticationState {
   const AuthenticationStateAuthUnauthenticated();
 }
+
+class AuthenticationStateError extends AuthenticationState {
+  const AuthenticationStateError();
+}

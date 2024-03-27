@@ -59,10 +59,7 @@ class AuthDataSourceImpl implements AuthDataSource {
     try {
       return _firebaseAuth.authStateChanges().map((user) => user != null);
     } catch (e) {
-      throw DeprecatedAppGenericException(
-        message:
-            'Não conseguimos identificar se está logado, faça novamente o login, ou tente mais tarde!',
-      );
+      throw AppGenericException();
     }
   }
 }

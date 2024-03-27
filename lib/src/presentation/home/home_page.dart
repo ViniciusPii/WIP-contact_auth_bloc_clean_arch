@@ -57,36 +57,41 @@ class _HomePageState extends State<HomePage> {
                     ),
                     const AppLabel(label: 'Olá!'),
                     AppTitle(title: state.user.name),
-                    const SizedBox(
-                      height: AppDimension.jumbo,
-                    ),
                     state.contacts.isEmpty
                         ? Expanded(
-                            child: Column(
-                              children: [
-                                SvgPicture.asset(
-                                  'assets/empty.svg',
-                                  width: 350,
-                                  height: 350,
+                            child: Center(
+                              child: SingleChildScrollView(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    SvgPicture.asset(
+                                      'assets/empty.svg',
+                                      width: 350,
+                                      height: 350,
+                                    ),
+                                    const SizedBox(
+                                      height: AppDimension.medium,
+                                    ),
+                                    const AppTitle(title: 'Nada por aqui!'),
+                                    const SizedBox(
+                                      height: AppDimension.medium,
+                                    ),
+                                    const AppLabel(
+                                      label:
+                                          'Não se preocupe! Assim que você cadastrar o seu primeiro contato, logo ele aparecerá por aqui!',
+                                    )
+                                  ],
                                 ),
-                                const SizedBox(
-                                  height: AppDimension.medium,
-                                ),
-                                const AppTitle(title: 'Nada por aqui!'),
-                                const SizedBox(
-                                  height: AppDimension.medium,
-                                ),
-                                const AppLabel(
-                                  label:
-                                      'Não se preocupe! Assim que você cadastrar o seu primeiro contato, logo ele aparecerá por aqui!',
-                                )
-                              ],
+                              ),
                             ),
                           )
                         : Expanded(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
+                                const SizedBox(
+                                  height: AppDimension.jumbo,
+                                ),
                                 const AppTitle(title: 'Confira seus contatos!'),
                                 const SizedBox(
                                   height: AppDimension.large,

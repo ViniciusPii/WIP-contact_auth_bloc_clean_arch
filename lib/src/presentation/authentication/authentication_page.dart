@@ -1,3 +1,4 @@
+import 'package:contact_auth_bloc/src/core/errors/ui/error_page.dart';
 import 'package:contact_auth_bloc/src/core/ui/base_bloc_state.dart';
 import 'package:contact_auth_bloc/src/presentation/authentication/controller/authentication_cubit.dart';
 import 'package:contact_auth_bloc/src/presentation/authentication/controller/authentication_state.dart';
@@ -28,6 +29,7 @@ class _AuthenticationPageState extends BaseBlocState<AuthenticationPage, Authent
           AuthenticationStateInitial() => context.route(AppRoutes.welcome),
           AuthenticationStateAuthUnauthenticated() => context.route(AppRoutes.login),
           AuthenticationStateAuthAuthenticated() => context.route(AppRoutes.main),
+          AuthenticationStateError() => ErrorPage(retryAction: () => controller.isLoggedIn()),
         };
       },
     );
