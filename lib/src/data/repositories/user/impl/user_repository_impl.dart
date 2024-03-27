@@ -14,8 +14,8 @@ class UserRepositoryImpl implements UserRepository {
   UserEntity getUser() {
     try {
       return _dataSource.getUser();
-    } on DeprecatedAppGenericException catch (e) {
-      throw DeprecatedAppGenericException(message: e.message);
+    } on AppGenericException catch (_) {
+      throw AppGenericException();
     }
   }
 

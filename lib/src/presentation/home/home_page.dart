@@ -64,9 +64,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             floatingActionButton: FloatingActionButton(
-              onPressed: () => {
-                Navigator.of(context).pushNamed(AppRoutes.addContact),
-              },
+              onPressed: () => Navigator.of(context).pushNamed(AppRoutes.addContact),
               child: const Icon(Icons.add),
             ),
           );

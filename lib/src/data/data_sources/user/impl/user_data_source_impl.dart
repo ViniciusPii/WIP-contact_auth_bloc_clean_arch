@@ -16,15 +16,9 @@ class UserDataSourceImpl implements UserDataSource {
     try {
       final User? user = _firebaseAuth.currentUser;
 
-      if (user != null) {
-        return UserEntityAdapter.from(user);
-      } else {
-        throw DeprecatedAppGenericException(message: 'Usuário não encontrado!');
-      }
-    } on DeprecatedAppGenericException catch (e) {
-      throw DeprecatedAppGenericException(message: e.message);
+      return UserEntityAdapter.from(user);
     } catch (e) {
-      throw DeprecatedAppGenericException(message: 'Algo deu errado! Tente Novamente');
+      throw AppGenericException();
     }
   }
 
