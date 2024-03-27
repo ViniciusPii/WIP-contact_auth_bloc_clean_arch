@@ -1,6 +1,4 @@
 import 'package:contact_auth_bloc/src/core/errors/ui/error_page.dart';
-import 'package:contact_auth_bloc/src/core/theme/app_styles.dart';
-import 'package:contact_auth_bloc/src/core/theme/infra/app_colors.dart';
 import 'package:contact_auth_bloc/src/core/theme/infra/app_dimension.dart';
 import 'package:contact_auth_bloc/src/core/ui/components/app_label.dart';
 import 'package:contact_auth_bloc/src/core/ui/components/app_title.dart';
@@ -9,6 +7,7 @@ import 'package:contact_auth_bloc/src/core/ui/components/three_bounce_component.
 import 'package:contact_auth_bloc/src/domain/entities/contact_entity.dart';
 import 'package:contact_auth_bloc/src/presentation/home/controller/home_cubit.dart';
 import 'package:contact_auth_bloc/src/presentation/home/controller/home_state.dart';
+import 'package:contact_auth_bloc/src/presentation/home/widgets/contact_card.dart';
 import 'package:contact_auth_bloc/src/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -57,60 +56,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                     const AppLabel(label: 'Olá!'),
                     AppTitle(title: state.user.name),
-                    state.contacts.isEmpty
-                        ? Expanded(
-                            child: Center(
-                              child: SingleChildScrollView(
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    SvgPicture.asset(
-                                      'assets/empty.svg',
-                                      width: 350,
-                                      height: 350,
-                                    ),
-                                    const SizedBox(
-                                      height: AppDimension.medium,
-                                    ),
-                                    const AppTitle(title: 'Nada por aqui!'),
-                                    const SizedBox(
-                                      height: AppDimension.medium,
-                                    ),
-                                    const AppLabel(
-                                      label:
-                                          'Não se preocupe! Assim que você cadastrar o seu primeiro contato, logo ele aparecerá por aqui!',
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ),
-                          )
-                        : Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const SizedBox(
-                                  height: AppDimension.jumbo,
-                                ),
-                                const AppTitle(title: 'Confira seus contatos!'),
-                                const SizedBox(
-                                  height: AppDimension.large,
-                                ),
-                                ListView.builder(
-                                  shrinkWrap: true,
-                                  itemCount: state.contacts.length,
-                                  itemBuilder: (context, index) {
-                                    final ContactEntity contact = state.contacts[index];
-
-                                    return _BuildCard(
-                                      contact: contact,
-                                      deleteAction: () => widget.controller.deleteContact(contact),
-                                    );
-                                  },
-                                ),
-                              ],
-                            ),
-                          ),
+                    state.contacts.isEmpty ? _buildContactEmpty() : _buildContactData(state),
                   ],
                 ),
               ),
@@ -128,55 +74,62 @@ class _HomePageState extends State<HomePage> {
       },
     );
   }
-}
 
-class _BuildCard extends StatelessWidget {
-  const _BuildCard({
-    required this.contact,
-    required this.deleteAction,
-  });
-
-  final ContactEntity contact;
-  final Function() deleteAction;
-
-  @override
-  Widget build(BuildContext context) {
-    return ListTile(
-      leading: CircleAvatar(
-        backgroundColor: AppStyles.primary,
-        child: AppTitle(
-          title: contact.name.substring(0, 1),
-          color: AppColors.white,
-        ),
-      ),
-      title: AppTitle(
-        title: contact.name,
-        type: TitleType.medium,
-      ),
-      subtitle: AppLabel(
-        isCenter: false,
-        type: LabelType.medium,
-        label: contact.phoneNumber,
-      ),
-      trailing: Row(
-        mainAxisSize: MainAxisSize.min,
+  Expanded _buildContactData(HomeStateSucces state) {
+    return Expanded(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          IconButton(
-            // TODO implementar
-            onPressed: () {},
-            icon: const Icon(
-              Icons.edit_note,
-            ),
+          const SizedBox(
+            height: AppDimension.jumbo,
           ),
-          IconButton(
-            // TODO implementar
-            onPressed: deleteAction,
-            icon: const Icon(
-              Icons.delete_outlined,
-              color: AppColors.red,
-            ),
-          )
+          const AppTitle(title: 'Confira seus contatos!'),
+          const SizedBox(
+            height: AppDimension.large,
+          ),
+          ListView.builder(
+            shrinkWrap: true,
+            itemCount: state.contacts.length,
+            itemBuilder: (context, index) {
+              final ContactEntity contact = state.contacts[index];
+
+              return ContactCard(
+                contact: contact,
+                deleteAction: () => widget.controller.deleteContact(contact),
+              );
+            },
+          ),
         ],
+      ),
+    );
+  }
+
+  Expanded _buildContactEmpty() {
+    return Expanded(
+      child: Center(
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SvgPicture.asset(
+                'assets/empty.svg',
+                width: 350,
+                height: 350,
+              ),
+              const SizedBox(
+                height: AppDimension.medium,
+              ),
+              const AppTitle(title: 'Nada por aqui!'),
+              const SizedBox(
+                height: AppDimension.medium,
+              ),
+              const AppLabel(
+                label:
+                    'Não se preocupe! Assim que você cadastrar o seu primeiro contato, logo ele aparecerá por aqui!',
+              )
+            ],
+          ),
+        ),
       ),
     );
   }
