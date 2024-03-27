@@ -30,7 +30,7 @@ class ContactsDataSourceImpl implements ContactsDataSource {
           .map((doc) => ContactEntityAdapter.fromMap(doc.data() as Map<String, dynamic>, doc.id))
           .toList());
     } catch (e) {
-      throw DeprecatedAppGenericException(message: 'Erro ao carregar contatos!');
+      throw AppGenericException();
     }
   }
 
@@ -39,7 +39,7 @@ class ContactsDataSourceImpl implements ContactsDataSource {
     try {
       await _contactsCollection(userId).doc(contact.id).delete();
     } catch (e) {
-      throw DeprecatedAppGenericException(message: 'Erro ao carregar contatos!');
+      throw AppGenericException();
     }
   }
 }

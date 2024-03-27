@@ -21,8 +21,8 @@ class GetContactsUseCaseImpl implements GetContactsUseCase {
       UserEntity user = _getUserUseCase();
 
       return _repository.getContacts(user.id);
-    } on DeprecatedAppGenericException catch (e) {
-      throw DeprecatedAppGenericException(message: e.message);
+    } on AppGenericException catch (_) {
+      throw AppGenericException();
     }
   }
 }

@@ -23,8 +23,8 @@ class ContactsRepositoryImpl implements ContactsRepository {
   Stream<List<ContactEntity>> getContacts(String userId) {
     try {
       return _dataSource.getContacts(userId);
-    } on DeprecatedAppGenericException catch (e) {
-      throw DeprecatedAppGenericException(message: e.message);
+    } on AppGenericException catch (_) {
+      throw AppGenericException();
     }
   }
 
@@ -32,8 +32,8 @@ class ContactsRepositoryImpl implements ContactsRepository {
   Future<void> deleteContact(ContactEntity contact, String userId) {
     try {
       return _dataSource.deleteContact(contact, userId);
-    } on DeprecatedAppGenericException catch (e) {
-      throw DeprecatedAppGenericException(message: e.message);
+    } on AppGenericException catch (_) {
+      throw AppGenericException();
     }
   }
 }
