@@ -30,7 +30,7 @@ class HomeCubit extends Cubit<HomeState> {
       _getContactsUseCase().listen((contacts) {
         emit(HomeStateSucces(user: user, contacts: contacts));
       });
-    } on AppGenericException catch (_) {
+    } on DeprecatedAppGenericException catch (_) {
       emit(const HomeStateError());
     }
   }
@@ -38,7 +38,7 @@ class HomeCubit extends Cubit<HomeState> {
   void deleteContact(ContactEntity contact) async {
     try {
       await _deleteContactUseCase(contact);
-    } on AppGenericException catch (_) {
+    } on DeprecatedAppGenericException catch (_) {
       emit(const HomeStateError());
     }
   }

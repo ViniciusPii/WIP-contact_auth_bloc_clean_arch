@@ -29,7 +29,7 @@ class AuthDataSourceImpl implements AuthDataSource {
 
       return true;
     } catch (e) {
-      throw AppGenericException(message: "Erro ao realizar Login!");
+      throw DeprecatedAppGenericException(message: "Erro ao realizar Login!");
     }
   }
 
@@ -39,7 +39,7 @@ class AuthDataSourceImpl implements AuthDataSource {
       await _firebaseAuth.signOut();
       await _googleSignIn.signOut();
     } catch (e) {
-      throw AppGenericException(message: 'Erro inesperado! Tente novamente mais tarde!');
+      throw DeprecatedAppGenericException(message: 'Erro inesperado! Tente novamente mais tarde!');
     }
   }
 
@@ -48,7 +48,7 @@ class AuthDataSourceImpl implements AuthDataSource {
     try {
       return _firebaseAuth.authStateChanges().map((user) => user != null);
     } catch (e) {
-      throw AppGenericException(
+      throw DeprecatedAppGenericException(
         message:
             'Não conseguimos identificar se está logado, faça novamente o login, ou tente mais tarde!',
       );

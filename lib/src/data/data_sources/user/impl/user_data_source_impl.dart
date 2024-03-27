@@ -19,12 +19,12 @@ class UserDataSourceImpl implements UserDataSource {
       if (user != null) {
         return UserEntityAdapter.from(user);
       } else {
-        throw AppGenericException(message: 'Usuário não encontrado!');
+        throw DeprecatedAppGenericException(message: 'Usuário não encontrado!');
       }
-    } on AppGenericException catch (e) {
-      throw AppGenericException(message: e.message);
+    } on DeprecatedAppGenericException catch (e) {
+      throw DeprecatedAppGenericException(message: e.message);
     } catch (e) {
-      throw AppGenericException(message: 'Algo deu errado! Tente Novamente');
+      throw DeprecatedAppGenericException(message: 'Algo deu errado! Tente Novamente');
     }
   }
 
@@ -36,17 +36,17 @@ class UserDataSourceImpl implements UserDataSource {
       if (user != null) {
         await user.updateDisplayName(name).timeout(const Duration(seconds: 5));
       } else {
-        throw AppGenericException(message: 'Usuário não encontrado!');
+        throw DeprecatedAppGenericException(message: 'Usuário não encontrado!');
       }
     } on FirebaseException catch (e) {
       if (e.code == 'network-request-failed') {
-        throw AppGenericException(message: 'Sem conexão com a internet!');
+        throw DeprecatedAppGenericException(message: 'Sem conexão com a internet!');
       }
-      throw AppGenericException(message: 'Erro inesperado no Firebase!');
-    } on AppGenericException catch (e) {
-      throw AppGenericException(message: e.message);
+      throw DeprecatedAppGenericException(message: 'Erro inesperado no Firebase!');
+    } on DeprecatedAppGenericException catch (e) {
+      throw DeprecatedAppGenericException(message: e.message);
     } catch (e) {
-      throw AppGenericException(message: 'Estamos passando por indisponibilidades!');
+      throw DeprecatedAppGenericException(message: 'Estamos passando por indisponibilidades!');
     }
   }
 }

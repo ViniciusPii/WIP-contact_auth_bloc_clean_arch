@@ -13,8 +13,8 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<bool> signInWithGoogle() async {
     try {
       return await _dataSource.signInWithGoogle();
-    } on AppGenericException catch (e) {
-      throw AppGenericException(message: e.message);
+    } on DeprecatedAppGenericException catch (e) {
+      throw DeprecatedAppGenericException(message: e.message);
     }
   }
 
@@ -22,8 +22,8 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<void> signOut() async {
     try {
       return await _dataSource.signOut();
-    } on AppGenericException catch (e) {
-      throw AppGenericException(message: e.message);
+    } on DeprecatedAppGenericException catch (e) {
+      throw DeprecatedAppGenericException(message: e.message);
     }
   }
 
@@ -31,8 +31,8 @@ class AuthRepositoryImpl implements AuthRepository {
   Stream<bool> isLoggedIn() {
     try {
       return _dataSource.isLoggedIn();
-    } on AppGenericException catch (e) {
-      throw AppGenericException(message: e.message);
+    } on DeprecatedAppGenericException catch (e) {
+      throw DeprecatedAppGenericException(message: e.message);
     }
   }
 }

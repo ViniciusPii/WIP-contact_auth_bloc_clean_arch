@@ -14,8 +14,8 @@ class GetUserUseCaseImpl implements GetUserUseCase {
   UserEntity call() {
     try {
       return _repository.getUser();
-    } on AppGenericException catch (e) {
-      throw AppGenericException(message: e.message);
+    } on DeprecatedAppGenericException catch (e) {
+      throw DeprecatedAppGenericException(message: e.message);
     }
   }
 }

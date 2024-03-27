@@ -13,8 +13,8 @@ class UpdateUserNameUseCaseImpl implements UpdateUserNameUseCase {
   Future<void> call(String name) async {
     try {
       return await _repository.updateUserName(name);
-    } on AppGenericException catch (e) {
-      throw AppGenericException(message: e.message);
+    } on DeprecatedAppGenericException catch (e) {
+      throw DeprecatedAppGenericException(message: e.message);
     }
   }
 }

@@ -13,8 +13,8 @@ class SignOutUseCaseImpl implements SignOutUseCase {
   Future<void> call() async {
     try {
       await _repository.signOut();
-    } on AppGenericException catch (e) {
-      throw AppGenericException(message: e.message);
+    } on DeprecatedAppGenericException catch (e) {
+      throw DeprecatedAppGenericException(message: e.message);
     }
   }
 }

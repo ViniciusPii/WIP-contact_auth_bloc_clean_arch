@@ -21,8 +21,8 @@ class DeleteContactUseCaseImpl implements DeleteContactUseCase {
       UserEntity user = _getUserUseCase();
 
       await _repository.deleteContact(contact, user.id);
-    } on AppGenericException catch (e) {
-      throw AppGenericException(message: e.message);
+    } on DeprecatedAppGenericException catch (e) {
+      throw DeprecatedAppGenericException(message: e.message);
     }
   }
 }

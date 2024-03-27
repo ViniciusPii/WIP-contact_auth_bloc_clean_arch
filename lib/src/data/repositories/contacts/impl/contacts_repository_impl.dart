@@ -14,8 +14,8 @@ class ContactsRepositoryImpl implements ContactsRepository {
   Future<void> addContact(ContactEntity contact, String userId) async {
     try {
       return await _dataSource.addContact(contact, userId);
-    } on AppGenericException catch (e) {
-      throw AppGenericException(message: e.message);
+    } on DeprecatedAppGenericException catch (e) {
+      throw DeprecatedAppGenericException(message: e.message);
     }
   }
 
@@ -23,8 +23,8 @@ class ContactsRepositoryImpl implements ContactsRepository {
   Stream<List<ContactEntity>> getContacts(String userId) {
     try {
       return _dataSource.getContacts(userId);
-    } on AppGenericException catch (e) {
-      throw AppGenericException(message: e.message);
+    } on DeprecatedAppGenericException catch (e) {
+      throw DeprecatedAppGenericException(message: e.message);
     }
   }
 
@@ -32,8 +32,8 @@ class ContactsRepositoryImpl implements ContactsRepository {
   Future<void> deleteContact(ContactEntity contact, String userId) {
     try {
       return _dataSource.deleteContact(contact, userId);
-    } on AppGenericException catch (e) {
-      throw AppGenericException(message: e.message);
+    } on DeprecatedAppGenericException catch (e) {
+      throw DeprecatedAppGenericException(message: e.message);
     }
   }
 }

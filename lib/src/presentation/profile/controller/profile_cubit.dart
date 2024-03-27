@@ -26,7 +26,7 @@ class ProfileCubit extends Cubit<ProfileState> {
 
       await _updateUserNameUseCase(name);
       emit(const ProfileStateUpdateUserSuccess(message: 'Nome alterado com sucesso!'));
-    } on AppGenericException catch (e) {
+    } on DeprecatedAppGenericException catch (e) {
       emit(ProfileStateUpdateUserError(message: e.message ?? ''));
     }
   }
@@ -35,7 +35,7 @@ class ProfileCubit extends Cubit<ProfileState> {
     try {
       final UserEntity user = _getUserUseCase();
       emit(ProfileStateUserSuccess(user: user));
-    } on AppGenericException catch (e) {
+    } on DeprecatedAppGenericException catch (e) {
       emit(ProfileStateUserError(message: e.message ?? ''));
     }
   }
@@ -43,7 +43,7 @@ class ProfileCubit extends Cubit<ProfileState> {
   Future<void> signOut() async {
     try {
       await _signOutUseCase();
-    } on AppGenericException catch (e) {
+    } on DeprecatedAppGenericException catch (e) {
       emit(ProfileStateSignOutError(message: e.message ?? ''));
     }
   }

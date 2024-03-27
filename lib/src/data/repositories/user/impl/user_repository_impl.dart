@@ -14,8 +14,8 @@ class UserRepositoryImpl implements UserRepository {
   UserEntity getUser() {
     try {
       return _dataSource.getUser();
-    } on AppGenericException catch (e) {
-      throw AppGenericException(message: e.message);
+    } on DeprecatedAppGenericException catch (e) {
+      throw DeprecatedAppGenericException(message: e.message);
     }
   }
 
@@ -23,8 +23,8 @@ class UserRepositoryImpl implements UserRepository {
   Future<void> updateUserName(String name) {
     try {
       return _dataSource.updateUserName(name);
-    } on AppGenericException catch (e) {
-      throw AppGenericException(message: e.message);
+    } on DeprecatedAppGenericException catch (e) {
+      throw DeprecatedAppGenericException(message: e.message);
     }
   }
 }
