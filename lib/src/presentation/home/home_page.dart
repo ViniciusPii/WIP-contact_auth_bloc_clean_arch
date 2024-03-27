@@ -56,7 +56,9 @@ class _HomePageState extends State<HomePage> {
                     ),
                     const AppLabel(label: 'Olá!'),
                     AppTitle(title: state.user.name),
-                    state.contacts.isEmpty ? _buildContactEmpty() : _buildContactData(state),
+                    state.contacts.isEmpty
+                        ? _buildContactEmpty()
+                        : _buildContactData(state.contacts),
                   ],
                 ),
               ),
@@ -75,7 +77,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Expanded _buildContactData(HomeStateSucces state) {
+  Expanded _buildContactData(List<ContactEntity> contacts) {
     return Expanded(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -89,9 +91,9 @@ class _HomePageState extends State<HomePage> {
           ),
           ListView.builder(
             shrinkWrap: true,
-            itemCount: state.contacts.length,
+            itemCount: contacts.length,
             itemBuilder: (context, index) {
-              final ContactEntity contact = state.contacts[index];
+              final ContactEntity contact = contacts[index];
 
               return ContactCard(
                 contact: contact,
