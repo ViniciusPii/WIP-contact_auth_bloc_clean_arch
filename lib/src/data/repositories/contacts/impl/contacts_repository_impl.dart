@@ -14,8 +14,8 @@ class ContactsRepositoryImpl implements ContactsRepository {
   Future<void> addContact(ContactEntity contact, String userId) async {
     try {
       return await _dataSource.addContact(contact, userId);
-    } on DeprecatedAppGenericException catch (e) {
-      throw DeprecatedAppGenericException(message: e.message);
+    } on AppNetworkMessageException catch (e) {
+      throw AppNetworkMessageException(message: e.message);
     }
   }
 

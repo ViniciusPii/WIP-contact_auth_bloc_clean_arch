@@ -18,8 +18,8 @@ class AddContactCubit extends Cubit<AddContactState> {
 
       await _addContactUseCase(contact);
       emit(const AddContactStateSuccess());
-    } on DeprecatedAppGenericException catch (e) {
-      emit(AddContactStateError(message: e.message ?? ''));
+    } on AppNetworkMessageException catch (e) {
+      emit(AddContactStateNetworkError(message: e.message));
     }
   }
 }

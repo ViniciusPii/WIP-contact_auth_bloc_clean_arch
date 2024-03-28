@@ -21,8 +21,8 @@ class AddContactUseCaseImpl implements AddContactUseCase {
       UserEntity user = _getUserUseCase();
 
       return _repository.addContact(contact, user.id);
-    } on DeprecatedAppGenericException catch (e) {
-      throw DeprecatedAppGenericException(message: e.message);
+    } on AppNetworkMessageException catch (e) {
+      throw AppNetworkMessageException(message: e.message);
     }
   }
 }

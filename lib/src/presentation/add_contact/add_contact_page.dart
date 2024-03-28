@@ -75,8 +75,8 @@ class _AddContactPageState extends BaseBlocState<AddContactPage, AddContactCubit
                 BlocConsumer<AddContactCubit, AddContactState>(
                   bloc: controller,
                   listener: (context, state) {
-                    if (state is AddContactStateError) {
-                      return SnackBarComponent.error(
+                    if (state is AddContactStateNetworkError) {
+                      return SnackBarComponent.info(
                         context,
                         message: state.message,
                       );

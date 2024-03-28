@@ -19,3 +19,9 @@ class AddContactStateError extends AddContactState {
 
   final String message;
 }
+
+class AddContactStateNetworkError extends AddContactState {
+  const AddContactStateNetworkError({required this.message});
+
+  final String message;
+}
