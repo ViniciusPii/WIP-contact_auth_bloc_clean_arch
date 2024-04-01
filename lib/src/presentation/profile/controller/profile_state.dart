@@ -45,7 +45,5 @@ class ProfileStateUserSuccess extends ProfileState {
 }
 
 class ProfileStateUserError extends ProfileState {
-  const ProfileStateUserError({required this.message});
-
-  final String message;
+  const ProfileStateUserError();
 }

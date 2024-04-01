@@ -35,8 +35,8 @@ class ProfileCubit extends Cubit<ProfileState> {
     try {
       final UserEntity user = _getUserUseCase();
       emit(ProfileStateUserSuccess(user: user));
-    } on DeprecatedAppGenericException catch (e) {
-      emit(ProfileStateUserError(message: e.message ?? ''));
+    } on AppGenericException catch (_) {
+      emit(const ProfileStateUserError());
     }
   }
 

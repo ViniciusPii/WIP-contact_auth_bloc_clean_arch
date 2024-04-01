@@ -84,7 +84,7 @@ class _MainPageState extends BaseBlocState<MainPage, MainCubit> {
           bloc: profileController,
           listener: (context, state) {
             controller.changeBottomNavigator(
-              isHide: state is ProfileStateUpdateUserLoading,
+              isHide: state is ProfileStateUpdateUserLoading || state is ProfileStateUserError,
               pageIndex: index,
             );
           },

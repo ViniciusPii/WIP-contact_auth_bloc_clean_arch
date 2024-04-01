@@ -1,3 +1,4 @@
+import 'package:contact_auth_bloc/src/core/errors/ui/error_page.dart';
 import 'package:contact_auth_bloc/src/core/theme/infra/app_dimension.dart';
 import 'package:contact_auth_bloc/src/core/ui/components/app_label.dart';
 import 'package:contact_auth_bloc/src/core/ui/components/app_title.dart';
@@ -59,6 +60,10 @@ class _ProfilePageState extends State<ProfilePage> {
                 return const Center(
                   child: ThreeBounceComponent(),
                 );
+              }
+
+              if (state is ProfileStateUserError) {
+                return ErrorPage(retryAction: () => widget.controller.getUser());
               }
 
               if (state is ProfileStateUserSuccess) {
