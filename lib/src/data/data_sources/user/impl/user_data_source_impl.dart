@@ -13,6 +13,8 @@ class UserDataSourceImpl implements UserDataSource {
 
   @override
   UserEntity getUser() {
+    // throw AppGenericException();
+
     try {
       final User? user = _firebaseAuth.currentUser;
 

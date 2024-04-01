@@ -2,17 +2,25 @@ import 'package:contact_auth_bloc/src/core/theme/infra/app_colors.dart';
 import 'package:contact_auth_bloc/src/core/theme/infra/app_dimension.dart';
 import 'package:contact_auth_bloc/src/core/ui/components/app_label.dart';
 import 'package:contact_auth_bloc/src/core/ui/components/app_title.dart';
+import 'package:contact_auth_bloc/src/core/ui/components/loader_component.dart';
 import 'package:contact_auth_bloc/src/core/ui/components/spacing_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-class ErrorPage extends StatelessWidget {
+class ErrorPage extends StatefulWidget {
   const ErrorPage({
     super.key,
     required this.retryAction,
   });
 
   final Function() retryAction;
+
+  @override
+  State<ErrorPage> createState() => _ErrorPageState();
+}
+
+class _ErrorPageState extends State<ErrorPage> {
+  static bool _isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -44,12 +52,25 @@ class ErrorPage extends StatelessWidget {
                 const SizedBox(
                   height: AppDimension.big,
                 ),
-                ElevatedButton(
-                  onPressed: retryAction,
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.neutral800, // Altere para a cor desejada
+                LoaderComponent(
+                  loading: _isLoading,
+                  color: AppColors.neutral800,
+                  child: ElevatedButton(
+                    onPressed: () async {
+                      setState(() {
+                        _isLoading = true;
+                      });
+                      await Future.delayed(const Duration(seconds: 1));
+                      setState(() {
+                        _isLoading = false;
+                      });
+                      widget.retryAction();
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: AppColors.neutral800, // Altere para a cor desejada
+                    ),
+                    child: const Text('Tentar novamente'),
                   ),
-                  child: const Text('Tentar novamente'),
                 )
               ],
             ),
