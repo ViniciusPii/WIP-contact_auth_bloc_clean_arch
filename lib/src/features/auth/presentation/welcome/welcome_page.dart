@@ -1,5 +1,5 @@
 import 'package:contact_auth_bloc/src/core/ui/base_bloc_state.dart';
-import 'package:contact_auth_bloc/src/presentation/welcome/controller/welcome_cubit.dart';
+import 'package:contact_auth_bloc/src/features/auth/presentation/welcome/controller/welcome_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 

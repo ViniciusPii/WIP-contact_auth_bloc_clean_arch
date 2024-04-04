@@ -1,5 +1,5 @@
 import 'package:contact_auth_bloc/src/core/errors/app_exceptions.dart';
-import 'package:contact_auth_bloc/src/data/data_sources/auth/auth_data_source.dart';
+import 'package:contact_auth_bloc/src/features/auth/data/data_sources/auth_data_source.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 

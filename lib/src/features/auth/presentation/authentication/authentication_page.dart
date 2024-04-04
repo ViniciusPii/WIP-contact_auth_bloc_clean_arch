@@ -1,7 +1,7 @@
 import 'package:contact_auth_bloc/src/core/errors/ui/error_page.dart';
 import 'package:contact_auth_bloc/src/core/ui/base_bloc_state.dart';
-import 'package:contact_auth_bloc/src/presentation/authentication/controller/authentication_cubit.dart';
-import 'package:contact_auth_bloc/src/presentation/authentication/controller/authentication_state.dart';
+import 'package:contact_auth_bloc/src/features/auth/presentation/authentication/controller/authentication_cubit.dart';
+import 'package:contact_auth_bloc/src/features/auth/presentation/authentication/controller/authentication_state.dart';
 import 'package:contact_auth_bloc/src/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

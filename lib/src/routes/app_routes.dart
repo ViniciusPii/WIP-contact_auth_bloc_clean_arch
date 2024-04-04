@@ -1,8 +1,8 @@
+import 'package:contact_auth_bloc/src/features/auth/presentation/authentication/authentication_page.dart';
+import 'package:contact_auth_bloc/src/features/auth/presentation/login/login_page.dart';
+import 'package:contact_auth_bloc/src/features/auth/presentation/welcome/welcome_page.dart';
 import 'package:contact_auth_bloc/src/presentation/add_contact/add_contact_page.dart';
-import 'package:contact_auth_bloc/src/presentation/authentication/authentication_page.dart';
-import 'package:contact_auth_bloc/src/presentation/login/login_page.dart';
 import 'package:contact_auth_bloc/src/presentation/main/main_page.dart';
-import 'package:contact_auth_bloc/src/presentation/welcome/welcome_page.dart';
 import 'package:flutter/material.dart';
 
 class AppRoutes {

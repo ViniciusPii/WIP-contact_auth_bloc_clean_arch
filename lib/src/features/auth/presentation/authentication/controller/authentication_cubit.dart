@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:contact_auth_bloc/src/core/errors/app_exceptions.dart';
-import 'package:contact_auth_bloc/src/domain/use_cases/auth/is_logged_in_use_case.dart';
-import 'package:contact_auth_bloc/src/presentation/authentication/controller/authentication_state.dart';
+import 'package:contact_auth_bloc/src/features/auth/domain/use_cases/is_logged_in_use_case.dart';
+import 'package:contact_auth_bloc/src/features/auth/presentation/authentication/controller/authentication_state.dart';
 
 class AuthenticationCubit extends Cubit<AuthenticationState> {
   AuthenticationCubit({
