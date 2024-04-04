@@ -4,16 +4,10 @@ class DeprecatedAppGenericException implements Exception {
   final String? message;
 }
 
-class DecprecatedAppNetworkException implements Exception {
-  DecprecatedAppNetworkException({this.message});
-
-  final String? message;
-}
-
 class AppGenericException implements Exception {}
 
-class AppMessageException implements Exception {
-  AppMessageException({
+class AppGenericMessageException implements Exception {
+  AppGenericMessageException({
     required this.message,
   });
 

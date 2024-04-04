@@ -17,7 +17,7 @@ class LoginCubit extends Cubit<LoginState> {
 
       await _signInWithGoogleUseCase();
       emit(const LoginStateSuccess());
-    } on AppMessageException catch (e) {
+    } on AppGenericMessageException catch (e) {
       emit(LoginStateError(message: e.message));
     } on AppNetworkMessageException catch (e) {
       emit(LoginStateNetworkError(message: e.message));

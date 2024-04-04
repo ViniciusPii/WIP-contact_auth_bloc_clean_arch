@@ -66,6 +66,10 @@ class _ProfilePageState extends State<ProfilePage> {
                 return ErrorPage(retryAction: () => widget.controller.getUser());
               }
 
+              if (state is ProfileStateSignOutError) {
+                return ErrorPage(retryAction: () => widget.controller.signOut());
+              }
+
               if (state is ProfileStateUserSuccess) {
                 return Column(
                   mainAxisAlignment: MainAxisAlignment.center,

@@ -19,7 +19,7 @@ class AuthDataSourceImpl implements AuthDataSource {
       final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
 
       if (googleUser == null) {
-        throw AppMessageException(message: 'Login cancelado pelo usuário!');
+        throw AppGenericMessageException(message: 'Login cancelado pelo usuário!');
       }
 
       final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
@@ -32,15 +32,15 @@ class AuthDataSourceImpl implements AuthDataSource {
       await _firebaseAuth.signInWithCredential(credential).timeout(const Duration(seconds: 5));
 
       return true;
-    } on AppMessageException catch (e) {
-      throw AppMessageException(message: e.message);
+    } on AppGenericMessageException catch (e) {
+      throw AppGenericMessageException(message: e.message);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'network-request-failed') {
         throw AppNetworkMessageException(message: 'Verifique a sua conexão!');
       }
-      throw AppMessageException(message: 'Algo deu errado! Tente novamente!');
+      throw AppGenericMessageException(message: 'Algo deu errado! Tente novamente!');
     } catch (e) {
-      throw AppMessageException(message: 'Algo deu errado! Tente novamente!');
+      throw AppGenericMessageException(message: 'Algo deu errado! Tente novamente!');
     }
   }
 
@@ -50,7 +50,7 @@ class AuthDataSourceImpl implements AuthDataSource {
       await _firebaseAuth.signOut();
       await _googleSignIn.signOut();
     } catch (e) {
-      throw DeprecatedAppGenericException(message: 'Erro inesperado! Tente novamente mais tarde!');
+      throw AppGenericMessageException(message: 'Erro inesperado! Tente novamente mais tarde!');
     }
   }
 

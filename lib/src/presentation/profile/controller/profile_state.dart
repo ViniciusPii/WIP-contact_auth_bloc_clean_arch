@@ -15,9 +15,7 @@ class ProfileStateSignOutLoading extends ProfileState {
 }
 
 class ProfileStateSignOutError extends ProfileState {
-  const ProfileStateSignOutError({required this.message});
-
-  final String message;
+  const ProfileStateSignOutError();
 }
 
 // Update User Name

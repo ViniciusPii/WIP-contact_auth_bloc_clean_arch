@@ -15,8 +15,8 @@ class AuthRepositoryImpl implements AuthRepository {
       return await _dataSource.signInWithGoogle();
     } on AppNetworkMessageException catch (e) {
       throw AppNetworkMessageException(message: e.message);
-    } on AppMessageException catch (e) {
-      throw AppMessageException(message: e.message);
+    } on AppGenericMessageException catch (e) {
+      throw AppGenericMessageException(message: e.message);
     }
   }
 
@@ -24,8 +24,8 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<void> signOut() async {
     try {
       return await _dataSource.signOut();
-    } on DeprecatedAppGenericException catch (e) {
-      throw DeprecatedAppGenericException(message: e.message);
+    } on AppGenericException catch (_) {
+      throw AppGenericException();
     }
   }
 

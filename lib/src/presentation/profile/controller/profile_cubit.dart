@@ -43,8 +43,8 @@ class ProfileCubit extends Cubit<ProfileState> {
   Future<void> signOut() async {
     try {
       await _signOutUseCase();
-    } on DeprecatedAppGenericException catch (e) {
-      emit(ProfileStateSignOutError(message: e.message ?? ''));
+    } on AppGenericException catch (_) {
+      emit(const ProfileStateSignOutError());
     }
   }
 }
