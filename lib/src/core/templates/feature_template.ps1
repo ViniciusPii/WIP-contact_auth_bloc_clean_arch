@@ -40,7 +40,7 @@ $caminhoDi = Join-Path -Path $caminhoPasta -ChildPath "di"
 # Criar a pasta 'di' dentro da pasta criada
 New-Item -Path $caminhoDi -ItemType Directory -Force
 
-# Caminho completo para o arquivo dil.dart
+# Caminho completo para o arquivo di.dart
 $caminhoArquivoDi = Join-Path -Path $caminhoDi -ChildPath "${pastaNome}_di.dart"
 
 # Template do di.dart
