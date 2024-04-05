@@ -5,7 +5,7 @@ $projectName = (Get-Content "pubspec.yaml" | Select-String "name:" | ForEach-Obj
 $featureNome = Read-Host "Digite o nome da feature"
 
 # Solicitar o nome da pasta do usuário
-$pastaNome = Read-Host "Digite o nome da pasta"
+$pastaNome = Read-Host "Digite o nome do repository"
 
 # Converter a primeira letra de cada palavra do nome da pasta para maiúscula
 $nomePastaMaiusculo = ($pastaNome -split "_") | ForEach-Object { $_.Substring(0,1).ToUpper() + $_.Substring(1) }
