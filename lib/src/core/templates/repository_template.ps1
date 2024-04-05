@@ -2,6 +2,9 @@
 $projectName = (Get-Content "pubspec.yaml" | Select-String "name:" | ForEach-Object { $_ -replace '^\s*name:\s*','' }) -replace '\s'
 
 # Solicitar o nome da pasta do usuário
+$featureNome = Read-Host "Digite o nome da feature"
+
+# Solicitar o nome da pasta do usuário
 $pastaNome = Read-Host "Digite o nome da pasta"
 
 # Converter a primeira letra de cada palavra do nome da pasta para maiúscula
@@ -11,15 +14,15 @@ $nomePastaMaiusculo = ($pastaNome -split "_") | ForEach-Object { $_.Substring(0,
 $nomePastaMaiusculo = $nomePastaMaiusculo -join ""
 
 # Caminho completo da nova pasta
-$caminhoPasta = Join-Path -Path "lib\src\data\repositories" -ChildPath $pastaNome
+$caminhoPasta = Join-Path -Path "lib\src\features\$featureNome\data" -ChildPath "repositories"
 
 # Criar a nova pasta
 New-Item -Path $caminhoPasta -ItemType Directory -Force
 
 # Template do repository_impl.dart
 $repositoryImplTemplate = @"
-import 'package:$projectName/src/data/data_sources/${pastaNome}/${pastaNome}_data_source.dart';
-import 'package:$projectName/src/data/repositories/${pastaNome}/${pastaNome}_repository.dart';
+import 'package:${projectName}/src/features/$featureNome/data/data_sources/${pastaNome}_data_source.dart';
+import 'package:${projectName}/src/features/$featureNome/data/repositories/${pastaNome}_repository.dart';
 
 class ${nomePastaMaiusculo}RepositoryImpl implements ${nomePastaMaiusculo}Repository {
   ${nomePastaMaiusculo}RepositoryImpl({
