@@ -9,15 +9,9 @@ class ProfileDI {
   ProfileDI._();
 
   static configure() {
-    _configureDataSources();
-    _configureRepositories();
     _configureUseCases();
     _configureCubits();
   }
-
-  static void _configureDataSources() {}
-
-  static void _configureRepositories() {}
 
   static void _configureUseCases() {
     getIt.registerLazySingleton<UpdateUserNameUseCase>(

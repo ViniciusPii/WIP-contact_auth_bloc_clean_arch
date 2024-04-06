@@ -17,7 +17,6 @@ class SharedDI {
     _configureDataSources();
     _configureRepositories();
     _configureUseCases();
-    _configureCubits();
   }
 
   static void _configureDataSources() {
@@ -54,6 +53,4 @@ class SharedDI {
       ),
     );
   }
-
-  static void _configureCubits() {}
 }
