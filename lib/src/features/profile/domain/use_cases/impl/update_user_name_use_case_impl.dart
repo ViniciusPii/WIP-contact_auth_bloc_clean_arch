@@ -1,5 +1,5 @@
 import 'package:contact_auth_bloc/src/core/errors/app_exceptions.dart';
-import 'package:contact_auth_bloc/src/domain/use_cases/user/update_user_name_use_case.dart';
+import 'package:contact_auth_bloc/src/features/profile/domain/use_cases/update_user_name_use_case.dart';
 import 'package:contact_auth_bloc/src/features/shared/data/repositories/user_repository.dart';
 
 class UpdateUserNameUseCaseImpl implements UpdateUserNameUseCase {

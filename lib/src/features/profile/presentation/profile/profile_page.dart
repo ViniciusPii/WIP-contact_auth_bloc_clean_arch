@@ -5,9 +5,9 @@ import 'package:contact_auth_bloc/src/core/ui/components/app_title.dart';
 import 'package:contact_auth_bloc/src/core/ui/components/snack_bar/snack_bar_component.dart';
 import 'package:contact_auth_bloc/src/core/ui/components/spacing_page.dart';
 import 'package:contact_auth_bloc/src/core/ui/components/three_bounce_component.dart';
-import 'package:contact_auth_bloc/src/presentation/profile/controller/profile_cubit.dart';
-import 'package:contact_auth_bloc/src/presentation/profile/controller/profile_state.dart';
-import 'package:contact_auth_bloc/src/presentation/profile/widgets/profile_modal_widget.dart';
+import 'package:contact_auth_bloc/src/features/profile/presentation/profile/controller/profile_cubit.dart';
+import 'package:contact_auth_bloc/src/features/profile/presentation/profile/controller/profile_state.dart';
+import 'package:contact_auth_bloc/src/features/profile/presentation/profile/widgets/profile_modal_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

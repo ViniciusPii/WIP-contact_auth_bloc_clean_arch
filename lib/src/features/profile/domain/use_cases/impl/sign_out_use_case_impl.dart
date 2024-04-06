@@ -1,5 +1,5 @@
 import 'package:contact_auth_bloc/src/core/errors/app_exceptions.dart';
-import 'package:contact_auth_bloc/src/features/auth/domain/use_cases/sign_out_use_case.dart';
+import 'package:contact_auth_bloc/src/features/profile/domain/use_cases/sign_out_use_case.dart';
 import 'package:contact_auth_bloc/src/features/shared/data/repositories/auth_repository.dart';
 
 class SignOutUseCaseImpl implements SignOutUseCase {

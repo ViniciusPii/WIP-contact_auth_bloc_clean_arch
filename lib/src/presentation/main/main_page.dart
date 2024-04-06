@@ -1,14 +1,14 @@
 import 'package:contact_auth_bloc/src/core/theme/app_styles.dart';
 import 'package:contact_auth_bloc/src/core/ui/base_bloc_state.dart';
 import 'package:contact_auth_bloc/src/di/inject.dart';
+import 'package:contact_auth_bloc/src/features/profile/presentation/profile/controller/profile_cubit.dart';
+import 'package:contact_auth_bloc/src/features/profile/presentation/profile/controller/profile_state.dart';
+import 'package:contact_auth_bloc/src/features/profile/presentation/profile/profile_page.dart';
 import 'package:contact_auth_bloc/src/presentation/home/controller/home_cubit.dart';
 import 'package:contact_auth_bloc/src/presentation/home/controller/home_state.dart';
 import 'package:contact_auth_bloc/src/presentation/home/home_page.dart';
 import 'package:contact_auth_bloc/src/presentation/main/controller/main_cubit.dart';
 import 'package:contact_auth_bloc/src/presentation/main/controller/main_state.dart';
-import 'package:contact_auth_bloc/src/presentation/profile/controller/profile_cubit.dart';
-import 'package:contact_auth_bloc/src/presentation/profile/controller/profile_state.dart';
-import 'package:contact_auth_bloc/src/presentation/profile/profile_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

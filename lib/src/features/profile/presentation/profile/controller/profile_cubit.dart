@@ -1,10 +1,10 @@
 import 'package:bloc/bloc.dart';
 import 'package:contact_auth_bloc/src/core/errors/app_exceptions.dart';
-import 'package:contact_auth_bloc/src/domain/use_cases/user/get_user_use_case.dart';
-import 'package:contact_auth_bloc/src/domain/use_cases/user/update_user_name_use_case.dart';
-import 'package:contact_auth_bloc/src/features/auth/domain/use_cases/sign_out_use_case.dart';
+import 'package:contact_auth_bloc/src/features/profile/domain/use_cases/sign_out_use_case.dart';
+import 'package:contact_auth_bloc/src/features/profile/domain/use_cases/update_user_name_use_case.dart';
+import 'package:contact_auth_bloc/src/features/profile/presentation/profile/controller/profile_state.dart';
 import 'package:contact_auth_bloc/src/features/shared/domain/entities/user_entity.dart';
-import 'package:contact_auth_bloc/src/presentation/profile/controller/profile_state.dart';
+import 'package:contact_auth_bloc/src/features/shared/domain/use_cases/get_user_use_case.dart';
 
 class ProfileCubit extends Cubit<ProfileState> {
   ProfileCubit({
