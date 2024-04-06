@@ -1,7 +1,7 @@
 import 'package:contact_auth_bloc/src/core/errors/app_exceptions.dart';
-import 'package:contact_auth_bloc/src/data/data_sources/user/user_data_source.dart';
-import 'package:contact_auth_bloc/src/data/repositories/user/user_repository.dart';
-import 'package:contact_auth_bloc/src/domain/entities/user_entity.dart';
+import 'package:contact_auth_bloc/src/features/shared/data/data_sources/user_data_source.dart';
+import 'package:contact_auth_bloc/src/features/shared/data/repositories/user_repository.dart';
+import 'package:contact_auth_bloc/src/features/shared/domain/entities/user_entity.dart';
 
 class UserRepositoryImpl implements UserRepository {
   UserRepositoryImpl({

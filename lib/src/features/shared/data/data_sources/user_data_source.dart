@@ -1,4 +1,4 @@
-import 'package:contact_auth_bloc/src/domain/entities/user_entity.dart';
+import 'package:contact_auth_bloc/src/features/shared/domain/entities/user_entity.dart';
 
 abstract class UserDataSource {
   UserEntity getUser();

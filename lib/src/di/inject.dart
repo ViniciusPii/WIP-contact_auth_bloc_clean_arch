@@ -1,23 +1,18 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:contact_auth_bloc/src/data/data_sources/contacts/contacts_data_source.dart';
 import 'package:contact_auth_bloc/src/data/data_sources/contacts/impl/contacts_data_source_impl.dart';
-import 'package:contact_auth_bloc/src/data/data_sources/user/impl/user_data_source_impl.dart';
-import 'package:contact_auth_bloc/src/data/data_sources/user/user_data_source.dart';
 import 'package:contact_auth_bloc/src/data/repositories/contacts/contacts_repository.dart';
 import 'package:contact_auth_bloc/src/data/repositories/contacts/impl/contacts_repository_impl.dart';
-import 'package:contact_auth_bloc/src/data/repositories/user/impl/user_repository_impl.dart';
-import 'package:contact_auth_bloc/src/data/repositories/user/user_repository.dart';
 import 'package:contact_auth_bloc/src/domain/use_cases/contacts/add_contact_use_case.dart';
 import 'package:contact_auth_bloc/src/domain/use_cases/contacts/delete_contact_use_case.dart';
 import 'package:contact_auth_bloc/src/domain/use_cases/contacts/get_contacts_use_case.dart';
 import 'package:contact_auth_bloc/src/domain/use_cases/contacts/impl/add_contact_use_case_impl.dart';
 import 'package:contact_auth_bloc/src/domain/use_cases/contacts/impl/delete_contact_use_case_impl.dart';
 import 'package:contact_auth_bloc/src/domain/use_cases/contacts/impl/get_contacts_use_case_impl.dart';
-import 'package:contact_auth_bloc/src/domain/use_cases/user/get_user_use_case.dart';
-import 'package:contact_auth_bloc/src/domain/use_cases/user/impl/get_user_use_case_impl.dart';
 import 'package:contact_auth_bloc/src/domain/use_cases/user/impl/update_user_name_use_case_impl.dart';
 import 'package:contact_auth_bloc/src/domain/use_cases/user/update_user_name_use_case.dart';
 import 'package:contact_auth_bloc/src/features/auth/di/auth_di.dart';
+import 'package:contact_auth_bloc/src/features/shared/di/shared_di.dart';
 import 'package:contact_auth_bloc/src/presentation/add_contact/controller/add_contact_cubit.dart';
 import 'package:contact_auth_bloc/src/presentation/home/controller/home_cubit.dart';
 import 'package:contact_auth_bloc/src/presentation/main/controller/main_cubit.dart';
@@ -33,6 +28,7 @@ class Inject {
 
   static injection() {
     AuthDI.configure();
+    SharedDI.configure();
     _configureServices();
     _configureDataSources();
     _configureRepositories();
@@ -47,11 +43,6 @@ class Inject {
   }
 
   static void _configureDataSources() {
-    // User
-    getIt.registerLazySingleton<UserDataSource>(
-      () => UserDataSourceImpl(firebaseAuth: getIt.get()),
-    );
-
     // Contacts
     getIt.registerLazySingleton<ContactsDataSource>(
       () => ContactsDataSourceImpl(firestore: getIt.get()),
@@ -59,11 +50,6 @@ class Inject {
   }
 
   static void _configureRepositories() {
-    // User
-    getIt.registerLazySingleton<UserRepository>(
-      () => UserRepositoryImpl(dataSource: getIt.get()),
-    );
-
     // Contacts
     getIt.registerLazySingleton<ContactsRepository>(
       () => ContactsRepositoryImpl(dataSource: getIt.get()),
@@ -72,9 +58,6 @@ class Inject {
 
   static void _configureUseCases() {
     // User
-    getIt.registerLazySingleton<GetUserUseCase>(
-      () => GetUserUseCaseImpl(repository: getIt.get()),
-    );
     getIt.registerLazySingleton<UpdateUserNameUseCase>(
       () => UpdateUserNameUseCaseImpl(repository: getIt.get()),
     );

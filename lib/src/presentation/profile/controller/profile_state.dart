@@ -1,4 +1,4 @@
-import 'package:contact_auth_bloc/src/domain/entities/user_entity.dart';
+import 'package:contact_auth_bloc/src/features/shared/domain/entities/user_entity.dart';
 
 sealed class ProfileState {
   const ProfileState();
