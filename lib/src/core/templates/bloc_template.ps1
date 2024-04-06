@@ -2,10 +2,13 @@
 $projectName = (Get-Content "pubspec.yaml" | Select-String "name:" | ForEach-Object { $_ -replace '^\s*name:\s*','' }) -replace '\s'
 
 # Solicitar o nome da pasta do usuário
-$pastaNome = Read-Host "Digite o nome da pasta"
+$featureNome = Read-Host "Digite o nome da feature"
+
+# Solicitar o nome da pasta do usuário
+$pastaNome = Read-Host "Digite o nome do controller"
 
 # Caminho completo da nova pasta
-$caminhoPasta = Join-Path -Path "lib\src\presentation" -ChildPath $pastaNome
+$caminhoPasta = Join-Path -Path "lib\src\features\${featureNome}" -ChildPath "presentation\$pastaNome"
 
 # Criar a nova pasta
 New-Item -Path $caminhoPasta -ItemType Directory -Force
@@ -25,10 +28,10 @@ $nomePastaMaiusculo = $nomePastaMaiusculo -join ""
 # Template do cubit
 $cubitTemplate = @"
 import 'package:bloc/bloc.dart';
-import 'package:$projectName/src/presentation/$pastaNome/controller/${pastaNome}_state.dart';
+import 'package:$projectName/src/features/$featureNome/presentation/$pastaNome/controller/${pastaNome}_state.dart';
 
 class ${nomePastaMaiusculo}Cubit extends Cubit<${nomePastaMaiusculo}State> {
-  ${nomePastaMaiusculo}Cubit() : super(const ${nomePastaMaiusculo}StateInitial());
+  ${nomePastaMaiusculo}Cubit() : super(const ${nomePastaMaiusculo}InitialState());
 }
 "@
 
@@ -38,8 +41,8 @@ sealed class ${nomePastaMaiusculo}State {
   const ${nomePastaMaiusculo}State();
 }
 
-class ${nomePastaMaiusculo}StateInitial extends ${nomePastaMaiusculo}State {
-  const ${nomePastaMaiusculo}StateInitial();
+class ${nomePastaMaiusculo}InitialState extends ${nomePastaMaiusculo}State {
+  const ${nomePastaMaiusculo}InitialState();
 }
 "@
 
@@ -47,7 +50,7 @@ class ${nomePastaMaiusculo}StateInitial extends ${nomePastaMaiusculo}State {
 $pageTemplate = @"
 import 'package:flutter/material.dart';
 import 'package:$projectName/src/core/ui/base_bloc_state.dart';
-import 'package:$projectName/src/presentation/$pastaNome/controller/${pastaNome}_cubit.dart';
+import 'package:$projectName/src/features/$featureNome/presentation/$pastaNome/controller/${pastaNome}_cubit.dart';
 
 class ${nomePastaMaiusculo}Page extends StatefulWidget {
   const ${nomePastaMaiusculo}Page({super.key});
