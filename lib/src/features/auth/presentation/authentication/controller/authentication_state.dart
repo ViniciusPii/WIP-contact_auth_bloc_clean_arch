@@ -2,18 +2,18 @@ sealed class AuthenticationState {
   const AuthenticationState();
 }
 
-class AuthenticationStateInitial extends AuthenticationState {
-  const AuthenticationStateInitial();
+class AuthenticationInitialState extends AuthenticationState {
+  const AuthenticationInitialState();
 }
 
-class AuthenticationStateAuthAuthenticated extends AuthenticationState {
-  const AuthenticationStateAuthAuthenticated();
+class AuthenticationAuthAuthenticatedState extends AuthenticationState {
+  const AuthenticationAuthAuthenticatedState();
 }
 
-class AuthenticationStateAuthUnauthenticated extends AuthenticationState {
-  const AuthenticationStateAuthUnauthenticated();
+class AuthenticationAuthUnauthenticatedState extends AuthenticationState {
+  const AuthenticationAuthUnauthenticatedState();
 }
 
-class AuthenticationStateError extends AuthenticationState {
-  const AuthenticationStateError();
+class AuthenticationErrorState extends AuthenticationState {
+  const AuthenticationErrorState();
 }

@@ -26,10 +26,10 @@ class _AuthenticationPageState extends BaseBlocState<AuthenticationPage, Authent
       bloc: controller,
       builder: (context, state) {
         return switch (state) {
-          AuthenticationStateInitial() => context.route(AppRoutes.welcome),
-          AuthenticationStateAuthUnauthenticated() => context.route(AppRoutes.login),
-          AuthenticationStateAuthAuthenticated() => context.route(AppRoutes.main),
-          AuthenticationStateError() => ErrorPage(retryAction: () => controller.isLoggedIn()),
+          AuthenticationInitialState() => context.route(AppRoutes.welcome),
+          AuthenticationAuthUnauthenticatedState() => context.route(AppRoutes.login),
+          AuthenticationAuthAuthenticatedState() => context.route(AppRoutes.main),
+          AuthenticationErrorState() => ErrorPage(retryAction: () => controller.isLoggedIn()),
         };
       },
     );

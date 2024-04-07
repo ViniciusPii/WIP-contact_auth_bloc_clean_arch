@@ -9,7 +9,7 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
   AuthenticationCubit({
     required IsLoggedInUseCase isLoggedInUseCase,
   })  : _isLoggedInUseCase = isLoggedInUseCase,
-        super(const AuthenticationStateInitial());
+        super(const AuthenticationInitialState());
 
   final IsLoggedInUseCase _isLoggedInUseCase;
 
@@ -22,14 +22,14 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
       _loginSubscription = _isLoggedInUseCase().listen(
         (user) {
           if (user) {
-            emit(const AuthenticationStateAuthAuthenticated());
+            emit(const AuthenticationAuthAuthenticatedState());
           } else {
-            emit(const AuthenticationStateAuthUnauthenticated());
+            emit(const AuthenticationAuthUnauthenticatedState());
           }
         },
       );
     } on AppGenericException catch (_) {
-      emit(const AuthenticationStateError());
+      emit(const AuthenticationErrorState());
     }
   }
 
