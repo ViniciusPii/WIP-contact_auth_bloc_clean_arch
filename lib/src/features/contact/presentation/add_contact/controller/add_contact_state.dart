@@ -2,26 +2,16 @@ sealed class AddContactState {
   const AddContactState();
 }
 
-class AddContactStateInitial extends AddContactState {
-  const AddContactStateInitial();
+class AddContactInitialState extends AddContactState {
+  const AddContactInitialState();
 }
 
-class AddContactStateLoading extends AddContactState {
-  const AddContactStateLoading();
+class AddContactLoadingState extends AddContactState {
+  const AddContactLoadingState();
 }
 
-class AddContactStateSuccess extends AddContactState {
-  const AddContactStateSuccess();
-}
-
-class AddContactStateError extends AddContactState {
-  const AddContactStateError({required this.message});
-
-  final String message;
-}
-
-class AddContactStateNetworkError extends AddContactState {
-  const AddContactStateNetworkError({required this.message});
+class AddContactNetworkErrorState extends AddContactState {
+  const AddContactNetworkErrorState({required this.message});
 
   final String message;
 }

@@ -75,7 +75,7 @@ class _AddContactPageState extends BaseBlocState<AddContactPage, AddContactCubit
                 BlocConsumer<AddContactCubit, AddContactState>(
                   bloc: controller,
                   listener: (context, state) {
-                    if (state is AddContactStateNetworkError) {
+                    if (state is AddContactNetworkErrorState) {
                       return SnackBarComponent.info(
                         context,
                         message: state.message,
@@ -84,7 +84,7 @@ class _AddContactPageState extends BaseBlocState<AddContactPage, AddContactCubit
                   },
                   builder: (context, state) {
                     return LoaderComponent(
-                      loading: state is AddContactStateLoading,
+                      loading: state is AddContactLoadingState,
                       child: ElevatedButton(
                         onPressed: () async {
                           final NavigatorState navigator = Navigator.of(context);

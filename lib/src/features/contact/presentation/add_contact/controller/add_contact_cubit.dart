@@ -8,18 +8,17 @@ class AddContactCubit extends Cubit<AddContactState> {
   AddContactCubit({
     required AddContactUseCase addContactUseCase,
   })  : _addContactUseCase = addContactUseCase,
-        super(const AddContactStateInitial());
+        super(const AddContactInitialState());
 
   final AddContactUseCase _addContactUseCase;
 
   Future<void> addContact(ContactEntity contact) async {
     try {
-      emit(const AddContactStateLoading());
+      emit(const AddContactLoadingState());
 
       await _addContactUseCase(contact);
-      emit(const AddContactStateSuccess());
     } on AppNetworkMessageException catch (e) {
-      emit(AddContactStateNetworkError(message: e.message));
+      emit(AddContactNetworkErrorState(message: e.message));
     }
   }
 }
