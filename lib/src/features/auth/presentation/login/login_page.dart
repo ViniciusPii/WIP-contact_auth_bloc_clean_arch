@@ -49,14 +49,14 @@ class _LoginPageState extends BaseBlocState<LoginPage, LoginCubit> {
             BlocConsumer<LoginCubit, LoginState>(
               bloc: controller,
               listener: (context, state) {
-                if (state is LoginStateError) {
+                if (state is LoginErrorState) {
                   return SnackBarComponent.error(
                     context,
                     message: state.message,
                   );
                 }
 
-                if (state is LoginStateNetworkError) {
+                if (state is LoginNetworkErrorState) {
                   return SnackBarComponent.info(
                     context,
                     message: state.message,
@@ -65,7 +65,7 @@ class _LoginPageState extends BaseBlocState<LoginPage, LoginCubit> {
               },
               builder: (context, state) {
                 return LoaderComponent(
-                  loading: state is LoginStateLoading,
+                  loading: state is LoginLoadingState,
                   child: ElevatedButton(
                     onPressed: () => controller.signInWithGoogle(),
                     child: const Text('Faça seu Login'),

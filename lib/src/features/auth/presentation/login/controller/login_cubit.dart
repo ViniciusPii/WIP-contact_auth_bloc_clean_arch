@@ -7,20 +7,19 @@ class LoginCubit extends Cubit<LoginState> {
   LoginCubit({
     required SignInWithGoogleUseCase signInWithGoogleUseCase,
   })  : _signInWithGoogleUseCase = signInWithGoogleUseCase,
-        super(const LoginStateInitial());
+        super(const LoginInitialState());
 
   final SignInWithGoogleUseCase _signInWithGoogleUseCase;
 
   Future<void> signInWithGoogle() async {
     try {
-      emit(const LoginStateLoading());
+      emit(const LoginLoadingState());
 
       await _signInWithGoogleUseCase();
-      emit(const LoginStateSuccess());
     } on AppGenericMessageException catch (e) {
-      emit(LoginStateError(message: e.message));
+      emit(LoginErrorState(message: e.message));
     } on AppNetworkMessageException catch (e) {
-      emit(LoginStateNetworkError(message: e.message));
+      emit(LoginNetworkErrorState(message: e.message));
     }
   }
 }

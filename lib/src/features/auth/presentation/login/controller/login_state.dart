@@ -2,26 +2,22 @@ sealed class LoginState {
   const LoginState();
 }
 
-class LoginStateInitial extends LoginState {
-  const LoginStateInitial();
+class LoginInitialState extends LoginState {
+  const LoginInitialState();
 }
 
-class LoginStateLoading extends LoginState {
-  const LoginStateLoading();
+class LoginLoadingState extends LoginState {
+  const LoginLoadingState();
 }
 
-class LoginStateSuccess extends LoginState {
-  const LoginStateSuccess();
-}
-
-class LoginStateError extends LoginState {
-  const LoginStateError({required this.message});
+class LoginErrorState extends LoginState {
+  const LoginErrorState({required this.message});
 
   final String message;
 }
 
-class LoginStateNetworkError extends LoginState {
-  const LoginStateNetworkError({required this.message});
+class LoginNetworkErrorState extends LoginState {
+  const LoginNetworkErrorState({required this.message});
 
   final String message;
 }
