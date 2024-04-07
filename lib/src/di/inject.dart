@@ -18,10 +18,6 @@ class Inject {
     ProfileDI.configure();
     ContactDI.configure();
     _configureServices();
-    _configureDataSources();
-    _configureRepositories();
-    _configureUseCases();
-    _configureCubits();
   }
 
   static void _configureServices() {
@@ -35,12 +31,4 @@ class Inject {
       () => GoogleSignIn(),
     );
   }
-
-  static void _configureDataSources() {}
-
-  static void _configureRepositories() {}
-
-  static void _configureUseCases() {}
-
-  static void _configureCubits() {}
 }
