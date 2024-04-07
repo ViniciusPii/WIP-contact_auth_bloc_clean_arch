@@ -2,6 +2,6 @@ sealed class WelcomeState {
   const WelcomeState();
 }
 
-class WelcomeStateInitial extends WelcomeState {
-  const WelcomeStateInitial();
+class WelcomeInitialState extends WelcomeState {
+  const WelcomeInitialState();
 }
