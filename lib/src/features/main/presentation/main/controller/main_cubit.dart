@@ -1,5 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:contact_auth_bloc/src/features/contact/presentation/main/controller/main_state.dart';
+import 'package:contact_auth_bloc/src/features/main/presentation/main/controller/main_state.dart';
 
 class MainCubit extends Cubit<MainState> {
   MainCubit() : super(MainNavigationState(currentPage: 0, hideBottomNavigation: false));

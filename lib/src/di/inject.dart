@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:contact_auth_bloc/src/features/auth/di/auth_di.dart';
 import 'package:contact_auth_bloc/src/features/contact/di/contact_di.dart';
+import 'package:contact_auth_bloc/src/features/main/di/main_di.dart';
 import 'package:contact_auth_bloc/src/features/profile/di/profile_di.dart';
 import 'package:contact_auth_bloc/src/features/shared/di/shared_di.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -14,6 +15,7 @@ class Inject {
 
   static injection() {
     AuthDI.configure();
+    MainDI.configure();
     SharedDI.configure();
     ProfileDI.configure();
     ContactDI.configure();
