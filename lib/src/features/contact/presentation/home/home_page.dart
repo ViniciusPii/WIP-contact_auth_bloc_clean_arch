@@ -34,44 +34,46 @@ class _HomePageState extends State<HomePage> {
     return BlocBuilder<HomeCubit, HomeState>(
       bloc: widget.controller,
       builder: (context, state) {
-        if (state is HomeStateLoading) {
-          return const Center(
-            child: ThreeBounceComponent(),
-          );
-        }
-
-        if (state is HomeStateError) {
-          return ErrorPage(retryAction: () => widget.controller.getHomeData());
-        }
-
-        if (state is HomeStateSucces) {
-          return Scaffold(
-            body: SafeArea(
-              child: SpacingPage(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const SizedBox(
-                      height: AppDimension.large,
-                    ),
-                    const AppLabel(label: 'Olá!'),
-                    AppTitle(title: state.user.name),
-                    state.contacts.isEmpty
-                        ? _buildContactEmpty()
-                        : _buildContactData(state.contacts),
-                  ],
-                ),
-              ),
-            ),
-            floatingActionButton: FloatingActionButton(
-              onPressed: () => Navigator.of(context).pushNamed(AppRoutes.addContact),
-              child: const Icon(Icons.add),
-            ),
-          );
-        }
-
-        return const SizedBox.shrink();
+        return switch (state) {
+          HomeLoadingState() => _buildLoading(),
+          HomeErrorState() => _buildError(),
+          HomeSuccesState() => _buildSuccess(state, context)
+        };
       },
+    );
+  }
+
+  Widget _buildLoading() {
+    return const Center(
+      child: ThreeBounceComponent(),
+    );
+  }
+
+  Widget _buildError() {
+    return ErrorPage(retryAction: () => widget.controller.getHomeData());
+  }
+
+  Widget _buildSuccess(HomeSuccesState state, BuildContext context) {
+    return Scaffold(
+      body: SafeArea(
+        child: SpacingPage(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(
+                height: AppDimension.large,
+              ),
+              const AppLabel(label: 'Olá!'),
+              AppTitle(title: state.user.name),
+              state.contacts.isEmpty ? _buildContactEmpty() : _buildContactData(state.contacts),
+            ],
+          ),
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => Navigator.of(context).pushNamed(AppRoutes.addContact),
+        child: const Icon(Icons.add),
+      ),
     );
   }
 

@@ -15,7 +15,7 @@ class HomeCubit extends Cubit<HomeState> {
   })  : _getUserUseCase = getUserUseCase,
         _getContactsUseCase = getContactsUseCase,
         _deleteContactUseCase = deleteContactUseCase,
-        super(const HomeStateInitial());
+        super(const HomeLoadingState());
 
   final GetUserUseCase _getUserUseCase;
   final GetContactsUseCase _getContactsUseCase;
@@ -23,15 +23,15 @@ class HomeCubit extends Cubit<HomeState> {
 
   void getHomeData() async {
     try {
-      emit(const HomeStateLoading());
+      emit(const HomeLoadingState());
 
       final UserEntity user = _getUserUseCase();
 
       _getContactsUseCase().listen((contacts) {
-        emit(HomeStateSucces(user: user, contacts: contacts));
+        emit(HomeSuccesState(user: user, contacts: contacts));
       });
     } on AppGenericException catch (_) {
-      emit(const HomeStateError());
+      emit(const HomeErrorState());
     }
   }
 
@@ -39,7 +39,7 @@ class HomeCubit extends Cubit<HomeState> {
     try {
       await _deleteContactUseCase(contact);
     } on AppGenericException catch (_) {
-      emit(const HomeStateError());
+      emit(const HomeErrorState());
     }
   }
 }

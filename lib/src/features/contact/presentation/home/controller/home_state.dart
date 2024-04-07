@@ -5,16 +5,12 @@ sealed class HomeState {
   const HomeState();
 }
 
-class HomeStateInitial extends HomeState {
-  const HomeStateInitial();
+class HomeLoadingState extends HomeState {
+  const HomeLoadingState();
 }
 
-class HomeStateLoading extends HomeState {
-  const HomeStateLoading();
-}
-
-class HomeStateSucces extends HomeState {
-  const HomeStateSucces({
+class HomeSuccesState extends HomeState {
+  const HomeSuccesState({
     required this.user,
     required this.contacts,
   });
@@ -23,6 +19,6 @@ class HomeStateSucces extends HomeState {
   final List<ContactEntity> contacts;
 }
 
-class HomeStateError extends HomeState {
-  const HomeStateError();
+class HomeErrorState extends HomeState {
+  const HomeErrorState();
 }
