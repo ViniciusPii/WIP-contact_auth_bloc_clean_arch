@@ -1,5 +1,5 @@
 import 'package:contact_auth_bloc/src/di/inject.dart';
-import 'package:contact_auth_bloc/src/features/main/presentation/main/controller/main_cubit.dart';
+import 'package:contact_auth_bloc/src/features/main/presentation/controller/main_cubit.dart';
 
 class MainDI {
   MainDI._();

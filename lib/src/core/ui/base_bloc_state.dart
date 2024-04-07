@@ -15,4 +15,10 @@ abstract class BaseBlocState<T extends StatefulWidget, C extends Cubit> extends 
   }
 
   void onReady(BuildContext context) {}
+
+  @override
+  void dispose() {
+    controller.close();
+    super.dispose();
+  }
 }
