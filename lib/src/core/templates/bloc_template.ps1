@@ -1,73 +1,63 @@
-# Obter o nome do projeto Flutter
 $projectName = (Get-Content "pubspec.yaml" | Select-String "name:" | ForEach-Object { $_ -replace '^\s*name:\s*','' }) -replace '\s'
 
-# Solicitar o nome da pasta do usuário
-$featureNome = Read-Host "Digite o nome da feature"
+$featureName = Read-Host "Digite o nome da feature"
 
-# Solicitar o nome da pasta do usuário
-$pastaNome = Read-Host "Digite o nome do controller"
+$subFeatureName = Read-Host "Digite o nome da sub feature"
 
-# Caminho completo da nova pasta
-$caminhoPasta = Join-Path -Path "lib\src\features\${featureNome}" -ChildPath "presentation\$pastaNome"
+$controllerName = Read-Host "Digite o nome do controller"
 
-# Criar a nova pasta
-New-Item -Path $caminhoPasta -ItemType Directory -Force
+$pathFolder = Join-Path -Path "lib\src\presentation" -ChildPath $featureName\$subFeatureName
 
-# Caminho completo para a pasta 'controller' dentro da pasta criada
-$caminhoController = Join-Path -Path $caminhoPasta -ChildPath "controller"
+New-Item -Path $pathFolder -ItemType Directory -Force
 
-# Criar a pasta 'controller' dentro da pasta criada
-New-Item -Path $caminhoController -ItemType Directory -Force
+$pathController = Join-Path -Path $pathFolder -ChildPath "controller"
 
-# Converter a primeira letra de cada palavra do nome da pasta para maiúscula
-$nomePastaMaiusculo = ($pastaNome -split "_") | ForEach-Object { $_.Substring(0,1).ToUpper() + $_.Substring(1) }
+New-Item -Path $pathController -ItemType Directory -Force
 
-# Juntar as partes em uma única string
-$nomePastaMaiusculo = $nomePastaMaiusculo -join ""
+$controllerNameUpper = ($controllerName -split "_") | ForEach-Object { $_.Substring(0,1).ToUpper() + $_.Substring(1) }
 
-# Template do cubit
+$controllerNameUpper = $controllerNameUpper -join ""
+
 $cubitTemplate = @"
 import 'package:bloc/bloc.dart';
-import 'package:$projectName/src/features/$featureNome/presentation/$pastaNome/controller/${pastaNome}_state.dart';
+import 'package:$projectName/src/presentation/$featureName/$subFeatureName/controller/${controllerName}_state.dart';
 
-class ${nomePastaMaiusculo}Cubit extends Cubit<${nomePastaMaiusculo}State> {
-  ${nomePastaMaiusculo}Cubit() : super(const ${nomePastaMaiusculo}InitialState());
+class ${controllerNameUpper}Cubit extends Cubit<${controllerNameUpper}State> {
+  ${controllerNameUpper}Cubit() : super(const ${controllerNameUpper}InitialState());
 }
 "@
 
-# Template do state.dart
 $stateTemplate = @"
-sealed class ${nomePastaMaiusculo}State {
-  const ${nomePastaMaiusculo}State();
+sealed class ${controllerNameUpper}State {
+  const ${controllerNameUpper}State();
 }
 
-class ${nomePastaMaiusculo}InitialState extends ${nomePastaMaiusculo}State {
-  const ${nomePastaMaiusculo}InitialState();
+class ${controllerNameUpper}InitialState extends ${controllerNameUpper}State {
+  const ${controllerNameUpper}InitialState();
 }
 "@
 
-# Template da page.dart
 $pageTemplate = @"
-import 'package:flutter/material.dart';
 import 'package:$projectName/src/core/ui/base_bloc_state.dart';
-import 'package:$projectName/src/features/$featureNome/presentation/$pastaNome/controller/${pastaNome}_cubit.dart';
+import 'package:$projectName/src/presentation/$featureName/$subFeatureName/controller/${controllerName}_cubit.dart';
+import 'package:flutter/material.dart';
 
-class ${nomePastaMaiusculo}Page extends StatefulWidget {
-  const ${nomePastaMaiusculo}Page({super.key});
+class ${controllerNameUpper}Page extends StatefulWidget {
+  const ${controllerNameUpper}Page({super.key});
 
   @override
-  State<${nomePastaMaiusculo}Page> createState() => _${nomePastaMaiusculo}PageState();
+  State<${controllerNameUpper}Page> createState() => _${controllerNameUpper}PageState();
 }
 
-class _${nomePastaMaiusculo}PageState extends BaseBlocState<${nomePastaMaiusculo}Page, ${nomePastaMaiusculo}Cubit> {
+class _${controllerNameUpper}PageState extends BaseBlocState<${controllerNameUpper}Page, ${controllerNameUpper}Cubit> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('${nomePastaMaiusculo}'),
+        title: const Text('${controllerNameUpper}'),
       ),
       body: const Center(
-        child: Text('Page ${nomePastaMaiusculo}'),
+        child: Text('Page ${controllerNameUpper}'),
       ),
     );
   }
@@ -75,19 +65,19 @@ class _${nomePastaMaiusculo}PageState extends BaseBlocState<${nomePastaMaiusculo
 "@
 
 # Caminho completo para o arquivo page.dart
-$caminhoPage = Join-Path -Path $caminhoPasta -ChildPath "$pastaNome`_page.dart"
+$caminhoPage = Join-Path -Path $pathFolder -ChildPath "$controllerName`_page.dart"
 
 # Criar o arquivo page.dart com base no template
 $pageTemplate | Set-Content -Path $caminhoPage
 
 # Caminho completo para o arquivo cubit.dart
-$caminhoCubit = Join-Path -Path $caminhoController -ChildPath "${pastaNome}_cubit.dart"
+$caminhoCubit = Join-Path -Path $pathController -ChildPath "${controllerName}_cubit.dart"
 
 # Criar o arquivo cubit.dart com base no template
 $cubitTemplate | Set-Content -Path $caminhoCubit
 
 # Caminho completo para o arquivo state.dart
-$caminhoState = Join-Path -Path $caminhoController -ChildPath "${pastaNome}_state.dart"
+$caminhoState = Join-Path -Path $pathController -ChildPath "${controllerName}_state.dart"
 
 # Criar o arquivo state.dart com base no template
 $stateTemplate | Set-Content -Path $caminhoState
