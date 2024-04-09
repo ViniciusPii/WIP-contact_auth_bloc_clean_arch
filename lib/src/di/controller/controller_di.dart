@@ -15,40 +15,22 @@ class ControllerDI {
   }
 
   static void _configureCubits() {
-    getIt.registerFactory(
-      () => WelcomeCubit(),
-    );
-    getIt.registerFactory(
-      () => LoginCubit(
-        signInWithGoogleUseCase: getIt.get(),
-      ),
-    );
-    getIt.registerFactory(
-      () => AuthenticationCubit(
-        isLoggedInUseCase: getIt.get(),
-      ),
-    );
+    getIt.registerFactory(() => WelcomeCubit());
+    getIt.registerFactory(() => LoginCubit(signInWithGoogleUseCase: getIt.get()));
+    getIt.registerFactory(() => AuthenticationCubit(isLoggedInUseCase: getIt.get()));
     getIt.registerFactory(
       () => HomeCubit(
-        getUserUseCase: getIt.get(),
-        getContactsUseCase: getIt.get(),
-        deleteContactUseCase: getIt.get(),
-      ),
+          getUserUseCase: getIt.get(),
+          getContactsUseCase: getIt.get(),
+          deleteContactUseCase: getIt.get()),
     );
-    getIt.registerFactory(
-      () => AddContactCubit(
-        addContactUseCase: getIt.get(),
-      ),
-    );
+    getIt.registerFactory(() => AddContactCubit(addContactUseCase: getIt.get()));
     getIt.registerFactory(
       () => ProfileCubit(
-        signOutUseCase: getIt.get(),
-        getUserUseCase: getIt.get(),
-        updateUserNameUseCase: getIt.get(),
-      ),
+          signOutUseCase: getIt.get(),
+          getUserUseCase: getIt.get(),
+          updateUserNameUseCase: getIt.get()),
     );
-    getIt.registerFactory(
-      () => MainCubit(),
-    );
+    getIt.registerFactory(() => MainCubit());
   }
 }
