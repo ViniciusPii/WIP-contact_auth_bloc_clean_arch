@@ -1,9 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:contact_auth_bloc/src/di/auth_di.dart';
-import 'package:contact_auth_bloc/src/di/contact_di.dart';
-import 'package:contact_auth_bloc/src/di/profile_di.dart';
-import 'package:contact_auth_bloc/src/di/shared_di.dart';
-import 'package:contact_auth_bloc/src/presentation/main/di/main_di.dart';
+import 'package:contact_auth_bloc/src/di/auth/auth_di.dart';
+import 'package:contact_auth_bloc/src/di/contact/contact_di.dart';
+import 'package:contact_auth_bloc/src/di/controller/controller_di.dart';
+import 'package:contact_auth_bloc/src/di/user/user_di.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_it/get_it.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -14,12 +13,12 @@ class Inject {
   Inject._();
 
   static injection() {
-    AuthDI.configure();
-    MainDI.configure();
-    SharedDI.configure();
-    ProfileDI.configure();
-    ContactDI.configure();
     _configureServices();
+
+    AuthDI.configure();
+    UserDI.configure();
+    ContactDI.configure();
+    ControllerDI.configure();
   }
 
   static void _configureServices() {

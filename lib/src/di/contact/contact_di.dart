@@ -9,8 +9,6 @@ import 'package:contact_auth_bloc/src/domain/use_cases/contact/get_contacts_use_
 import 'package:contact_auth_bloc/src/domain/use_cases/contact/impl/add_contact_use_case_impl.dart';
 import 'package:contact_auth_bloc/src/domain/use_cases/contact/impl/delete_contact_use_case_impl.dart';
 import 'package:contact_auth_bloc/src/domain/use_cases/contact/impl/get_contacts_use_case_impl.dart';
-import 'package:contact_auth_bloc/src/presentation/contact/add_contact/controller/add_contact_cubit.dart';
-import 'package:contact_auth_bloc/src/presentation/contact/home/controller/home_cubit.dart';
 
 class ContactDI {
   ContactDI._();
@@ -19,7 +17,6 @@ class ContactDI {
     _configureDataSources();
     _configureRepositories();
     _configureUseCases();
-    _configureCubits();
   }
 
   static void _configureDataSources() {
@@ -55,21 +52,6 @@ class ContactDI {
       () => DeleteContactUseCaseImpl(
         repository: getIt.get(),
         getUserUseCase: getIt.get(),
-      ),
-    );
-  }
-
-  static void _configureCubits() {
-    getIt.registerFactory(
-      () => HomeCubit(
-        getUserUseCase: getIt.get(),
-        getContactsUseCase: getIt.get(),
-        deleteContactUseCase: getIt.get(),
-      ),
-    );
-    getIt.registerFactory(
-      () => AddContactCubit(
-        addContactUseCase: getIt.get(),
       ),
     );
   }
