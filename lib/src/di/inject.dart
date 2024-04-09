@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:contact_auth_bloc/src/features/auth/di/auth_di.dart';
-import 'package:contact_auth_bloc/src/features/contact/di/contact_di.dart';
-import 'package:contact_auth_bloc/src/features/main/di/main_di.dart';
-import 'package:contact_auth_bloc/src/features/profile/di/profile_di.dart';
-import 'package:contact_auth_bloc/src/features/shared/di/shared_di.dart';
+import 'package:contact_auth_bloc/src/di/auth_di.dart';
+import 'package:contact_auth_bloc/src/di/contact_di.dart';
+import 'package:contact_auth_bloc/src/di/profile_di.dart';
+import 'package:contact_auth_bloc/src/di/shared_di.dart';
+import 'package:contact_auth_bloc/src/presentation/main/di/main_di.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_it/get_it.dart';
 import 'package:google_sign_in/google_sign_in.dart';

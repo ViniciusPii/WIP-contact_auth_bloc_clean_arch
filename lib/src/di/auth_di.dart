@@ -1,0 +1,46 @@
+import 'package:contact_auth_bloc/src/di/inject.dart';
+import 'package:contact_auth_bloc/src/domain/use_cases/auth/impl/is_logged_in_use_case_impl.dart';
+import 'package:contact_auth_bloc/src/domain/use_cases/auth/impl/sign_in_with_google_use_case_impl.dart';
+import 'package:contact_auth_bloc/src/domain/use_cases/auth/is_logged_in_use_case.dart';
+import 'package:contact_auth_bloc/src/domain/use_cases/auth/sign_in_with_google_use_case.dart';
+import 'package:contact_auth_bloc/src/presentation/auth/authentication/controller/authentication_cubit.dart';
+import 'package:contact_auth_bloc/src/presentation/auth/login/controller/login_cubit.dart';
+import 'package:contact_auth_bloc/src/presentation/auth/welcome/controller/welcome_cubit.dart';
+
+class AuthDI {
+  AuthDI._();
+
+  static configure() {
+    _configureUseCases();
+    _configureCubits();
+  }
+
+  static void _configureUseCases() {
+    getIt.registerLazySingleton<SignInWithGoogleUseCase>(
+      () => SignInWithGoogleUseCaseImpl(
+        repository: getIt.get(),
+      ),
+    );
+    getIt.registerLazySingleton<IsLoggedInUseCase>(
+      () => IsLoggedInUseCaseImpl(
+        repository: getIt.get(),
+      ),
+    );
+  }
+
+  static void _configureCubits() {
+    getIt.registerFactory(
+      () => WelcomeCubit(),
+    );
+    getIt.registerFactory(
+      () => LoginCubit(
+        signInWithGoogleUseCase: getIt.get(),
+      ),
+    );
+    getIt.registerFactory(
+      () => AuthenticationCubit(
+        isLoggedInUseCase: getIt.get(),
+      ),
+    );
+  }
+}
