@@ -1,50 +1,43 @@
-# Obter o nome do projeto Flutter
 $projectName = (Get-Content "pubspec.yaml" | Select-String "name:" | ForEach-Object { $_ -replace '^\s*name:\s*','' }) -replace '\s'
 
-# Solicitar o nome da pasta do usuário
-$featureNome = Read-Host "Digite o nome da feature"
+$featureName = Read-Host "Digite o nome da feature"
 
-# Solicitar o nome da pasta do usuário
-$pastaNome = Read-Host "Digite o nome do data source"
+$dtsName = Read-Host "Digite o nome do data source"
 
-# Converter a primeira letra de cada palavra do nome da pasta para maiúscula
-$nomePastaMaiusculo = ($pastaNome -split "_") | ForEach-Object { $_.Substring(0,1).ToUpper() + $_.Substring(1) }
+$featureNameUpper = ($featureName -split "_") | ForEach-Object { $_.Substring(0,1).ToUpper() + $_.Substring(1) }
 
-# Juntar as partes em uma única string
-$nomePastaMaiusculo = $nomePastaMaiusculo -join ""
+$featureNameUpper = $featureNameUpper -join ""
 
-# Caminho completo da nova pasta
-$caminhoPasta = Join-Path -Path "lib\src\features\$featureNome\data" -ChildPath 'data_sources'
+$dtsNameUpper = ($dtsName -split "_") | ForEach-Object { $_.Substring(0,1).ToUpper() + $_.Substring(1) }
 
-# Criar a nova pasta
-New-Item -Path $caminhoPasta -ItemType Directory -Force
+$featureNameUpper = $featureNameUpper -join ""
 
-# Template do data_source_impl.dart
+$dtsNameUpper = $dtsNameUpper -join ""
+
+$pathFolder = Join-Path -Path "lib\src\data\data_sources" -ChildPath $featureName
+
+New-Item -Path $pathFolder -ItemType Directory -Force
+
+# Template
 $dataSourceImplTemplate = @"
-import 'package:$projectName/src/features/$featureNome/data/data_sources/${pastaNome}_data_source.dart';
+import 'package:$projectName/src/data/data_sources/$featureName/${dtsName}_data_source.dart';
 
-class ${nomePastaMaiusculo}DataSourceImpl implements ${nomePastaMaiusculo}DataSource {}
+class ${dtsNameUpper}DataSourceImpl implements ${dtsNameUpper}DataSource {}
 "@
 
 # Template do data_source.dart
 $dataSourceTemplate = @"
-abstract class ${nomePastaMaiusculo}DataSource {}
+abstract class ${dtsNameUpper}DataSource {}
 "@
 
-# Caminho completo para a pasta 'impl' dentro da pasta criada
-$caminhoImpl = Join-Path -Path $caminhoPasta -ChildPath "impl"
+$pathImpl = Join-Path -Path $pathFolder -ChildPath "impl"
 
-# Criar a pasta 'impl' dentro da pasta criada
-New-Item -Path $caminhoImpl -ItemType Directory -Force
+New-Item -Path $pathImpl -ItemType Directory -Force
 
-# Caminho completo para o arquivo data_source_impl.dart
-$caminhoDataSourceImpl = Join-Path -Path $caminhoImpl -ChildPath "${pastaNome}_data_source_impl.dart"
+$pathDataSourceImpl = Join-Path -Path $pathImpl -ChildPath "${dtsName}_data_source_impl.dart"
 
-# Criar o arquivo data_source_impl.dart com base no template
-$dataSourceImplTemplate | Set-Content -Path $caminhoDataSourceImpl
+$dataSourceImplTemplate | Set-Content -Path $pathDataSourceImpl
 
-# Caminho completo para o arquivo data_source.dart
-$caminhoDataSource = Join-Path -Path $caminhoPasta -ChildPath "${pastaNome}_data_source.dart"
+$pathDataSource = Join-Path -Path $pathFolder -ChildPath "${dtsName}_data_source.dart"
 
-# Criar o arquivo data_source.dart com base no template
-$dataSourceTemplate | Set-Content -Path $caminhoDataSource
+$dataSourceTemplate | Set-Content -Path $pathDataSource
