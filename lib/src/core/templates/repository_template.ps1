@@ -1,57 +1,48 @@
-# Obter o nome do projeto Flutter
 $projectName = (Get-Content "pubspec.yaml" | Select-String "name:" | ForEach-Object { $_ -replace '^\s*name:\s*','' }) -replace '\s'
 
-# Solicitar o nome da pasta do usuário
-$featureNome = Read-Host "Digite o nome da feature"
+$featureName = Read-Host "Digite o nome da feature"
 
-# Solicitar o nome da pasta do usuário
-$pastaNome = Read-Host "Digite o nome do repository"
+$repositoryName = Read-Host "Digite o nome do repository"
 
-# Converter a primeira letra de cada palavra do nome da pasta para maiúscula
-$nomePastaMaiusculo = ($pastaNome -split "_") | ForEach-Object { $_.Substring(0,1).ToUpper() + $_.Substring(1) }
+$featureNameUpper = ($featureName -split "_") | ForEach-Object { $_.Substring(0,1).ToUpper() + $_.Substring(1) }
 
-# Juntar as partes em uma única string
-$nomePastaMaiusculo = $nomePastaMaiusculo -join ""
+$featureNameUpper = $featureNameUpper -join ""
 
-# Caminho completo da nova pasta
-$caminhoPasta = Join-Path -Path "lib\src\features\$featureNome\data" -ChildPath "repositories"
+$repositoryNameUpper = ($repositoryName -split "_") | ForEach-Object { $_.Substring(0,1).ToUpper() + $_.Substring(1) }
 
-# Criar a nova pasta
-New-Item -Path $caminhoPasta -ItemType Directory -Force
+$featureNameUpper = $featureNameUpper -join ""
 
-# Template do repository_impl.dart
+$repositoryNameUpper = $repositoryNameUpper -join ""
+
+$pathFolder = Join-Path -Path "lib\src\data\repositories" -ChildPath $featureName
+
+New-Item -Path $pathFolder -ItemType Directory -Force
+
 $repositoryImplTemplate = @"
-import 'package:${projectName}/src/features/$featureNome/data/data_sources/${pastaNome}_data_source.dart';
-import 'package:${projectName}/src/features/$featureNome/data/repositories/${pastaNome}_repository.dart';
+import 'package:$projectName/src/data/data_sources/$featureName/${repositoryName}_data_source.dart';
+import 'package:$projectName/src/data/repositories/$featureName/${repositoryName}_repository.dart';
 
-class ${nomePastaMaiusculo}RepositoryImpl implements ${nomePastaMaiusculo}Repository {
-  ${nomePastaMaiusculo}RepositoryImpl({
-    required ${nomePastaMaiusculo}DataSource dataSource,
+class ${repositoryNameUpper}RepositoryImpl implements ${repositoryNameUpper}Repository {
+  ${repositoryNameUpper}RepositoryImpl({
+    required ${repositoryNameUpper}DataSource dataSource,
   }) : _dataSource = dataSource;
 
-  final ${nomePastaMaiusculo}DataSource _dataSource;
+  final ${repositoryNameUpper}DataSource _dataSource;
 }
 "@
 
-# Template do repository.dart
 $repositoryTemplate = @"
-abstract class ${nomePastaMaiusculo}Repository {}
+abstract class ${repositoryNameUpper}Repository {}
 "@
 
-# Caminho completo para a pasta 'impl' dentro da pasta criada
-$caminhoImpl = Join-Path -Path $caminhoPasta -ChildPath "impl"
+$pathImpl = Join-Path -Path $pathFolder -ChildPath "impl"
 
-# Criar a pasta 'impl' dentro da pasta criada
-New-Item -Path $caminhoImpl -ItemType Directory -Force
+New-Item -Path $pathImpl -ItemType Directory -Force
 
-# Caminho completo para o arquivo repository_impl.dart
-$caminhoRepositoryImpl = Join-Path -Path $caminhoImpl -ChildPath "${pastaNome}_repository_impl.dart"
+$pathRepositoryImpl = Join-Path -Path $pathImpl -ChildPath "${repositoryName}_repository_impl.dart"
 
-# Criar o arquivo repository_impl.dart com base no template
-$repositoryImplTemplate | Set-Content -Path $caminhoRepositoryImpl
+$RepositoryImplTemplate | Set-Content -Path $pathRepositoryImpl
 
-# Caminho completo para o arquivo repository.dart
-$caminhoRepository = Join-Path -Path $caminhoPasta -ChildPath "${pastaNome}_repository.dart"
+$pathRepository = Join-Path -Path $pathFolder -ChildPath "${repositoryName}_repository.dart"
 
-# Criar o arquivo repository.dart com base no template
-$repositoryTemplate | Set-Content -Path $caminhoRepository
+$RepositoryTemplate | Set-Content -Path $pathRepository

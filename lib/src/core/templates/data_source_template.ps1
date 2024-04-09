@@ -18,14 +18,12 @@ $pathFolder = Join-Path -Path "lib\src\data\data_sources" -ChildPath $featureNam
 
 New-Item -Path $pathFolder -ItemType Directory -Force
 
-# Template
 $dataSourceImplTemplate = @"
 import 'package:$projectName/src/data/data_sources/$featureName/${dtsName}_data_source.dart';
 
 class ${dtsNameUpper}DataSourceImpl implements ${dtsNameUpper}DataSource {}
 "@
 
-# Template do data_source.dart
 $dataSourceTemplate = @"
 abstract class ${dtsNameUpper}DataSource {}
 "@
