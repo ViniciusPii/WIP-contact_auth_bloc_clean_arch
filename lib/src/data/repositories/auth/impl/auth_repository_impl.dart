@@ -1,4 +1,3 @@
-import 'package:contact_auth_bloc/src/core/errors/app_exceptions.dart';
 import 'package:contact_auth_bloc/src/data/data_sources/auth/auth_data_source.dart';
 import 'package:contact_auth_bloc/src/data/repositories/auth/auth_repository.dart';
 
@@ -10,31 +9,11 @@ class AuthRepositoryImpl implements AuthRepository {
   final AuthDataSource _dataSource;
 
   @override
-  Future<bool> signInWithGoogle() async {
-    try {
-      return await _dataSource.signInWithGoogle();
-    } on AppNetworkMessageException catch (e) {
-      throw AppNetworkMessageException(message: e.message);
-    } on AppGenericMessageException catch (e) {
-      throw AppGenericMessageException(message: e.message);
-    }
-  }
+  Future<bool> signInWithGoogle() async => await _dataSource.signInWithGoogle();
 
   @override
-  Future<void> signOut() async {
-    try {
-      return await _dataSource.signOut();
-    } on AppGenericException catch (_) {
-      throw AppGenericException();
-    }
-  }
+  Future<void> signOut() async => await _dataSource.signOut();
 
   @override
-  Stream<bool> isLoggedIn() {
-    try {
-      return _dataSource.isLoggedIn();
-    } on AppGenericException catch (_) {
-      throw AppGenericException();
-    }
-  }
+  Stream<bool> isLoggedIn() => _dataSource.isLoggedIn();
 }
