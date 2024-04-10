@@ -1,4 +1,3 @@
-import 'package:contact_auth_bloc/src/core/errors/app_exceptions.dart';
 import 'package:contact_auth_bloc/src/data/repositories/user/user_repository.dart';
 import 'package:contact_auth_bloc/src/domain/entities/user/user_entity.dart';
 import 'package:contact_auth_bloc/src/domain/use_cases/user/get_user_use_case.dart';
@@ -11,11 +10,5 @@ class GetUserUseCaseImpl implements GetUserUseCase {
   final UserRepository _repository;
 
   @override
-  UserEntity call() {
-    try {
-      return _repository.getUser();
-    } on AppGenericException catch (_) {
-      throw AppGenericException();
-    }
-  }
+  UserEntity call() => _repository.getUser();
 }
