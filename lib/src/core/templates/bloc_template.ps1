@@ -64,20 +64,14 @@ class _${controllerNameUpper}PageState extends BaseBlocState<${controllerNameUpp
 }
 "@
 
-# Caminho completo para o arquivo page.dart
-$caminhoPage = Join-Path -Path $pathFolder -ChildPath "$controllerName`_page.dart"
+$pathPage = Join-Path -Path $pathFolder -ChildPath "$controllerName`_page.dart"
 
-# Criar o arquivo page.dart com base no template
-$pageTemplate | Set-Content -Path $caminhoPage
+$pageTemplate | Set-Content -Path $pathPage
 
-# Caminho completo para o arquivo cubit.dart
-$caminhoCubit = Join-Path -Path $pathController -ChildPath "${controllerName}_cubit.dart"
+$pathCubit = Join-Path -Path $pathController -ChildPath "${controllerName}_cubit.dart"
 
-# Criar o arquivo cubit.dart com base no template
-$cubitTemplate | Set-Content -Path $caminhoCubit
+$cubitTemplate | Set-Content -Path $pathCubit
 
-# Caminho completo para o arquivo state.dart
-$caminhoState = Join-Path -Path $pathController -ChildPath "${controllerName}_state.dart"
+$pathState = Join-Path -Path $pathController -ChildPath "${controllerName}_state.dart"
 
-# Criar o arquivo state.dart com base no template
-$stateTemplate | Set-Content -Path $caminhoState
+$stateTemplate | Set-Content -Path $pathState
