@@ -1,4 +1,3 @@
-import 'package:contact_auth_bloc/src/core/errors/app_exceptions.dart';
 import 'package:contact_auth_bloc/src/data/data_sources/contact/contacts_data_source.dart';
 import 'package:contact_auth_bloc/src/data/repositories/contact/contacts_repository.dart';
 import 'package:contact_auth_bloc/src/domain/entities/contact/contact_entity.dart';
@@ -11,29 +10,13 @@ class ContactsRepositoryImpl implements ContactsRepository {
   final ContactsDataSource _dataSource;
 
   @override
-  Future<void> addContact(ContactEntity contact, String userId) async {
-    try {
-      return await _dataSource.addContact(contact, userId);
-    } on AppNetworkMessageException catch (e) {
-      throw AppNetworkMessageException(message: e.message);
-    }
-  }
+  Future<void> addContact(ContactEntity contact, String userId) async =>
+      await _dataSource.addContact(contact, userId);
 
   @override
-  Stream<List<ContactEntity>> getContacts(String userId) {
-    try {
-      return _dataSource.getContacts(userId);
-    } on AppGenericException catch (_) {
-      throw AppGenericException();
-    }
-  }
+  Stream<List<ContactEntity>> getContacts(String userId) => _dataSource.getContacts(userId);
 
   @override
-  Future<void> deleteContact(ContactEntity contact, String userId) {
-    try {
-      return _dataSource.deleteContact(contact, userId);
-    } on AppGenericException catch (_) {
-      throw AppGenericException();
-    }
-  }
+  Future<void> deleteContact(ContactEntity contact, String userId) =>
+      _dataSource.deleteContact(contact, userId);
 }

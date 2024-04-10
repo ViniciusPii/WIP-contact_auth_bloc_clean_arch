@@ -1,4 +1,3 @@
-import 'package:contact_auth_bloc/src/core/errors/app_exceptions.dart';
 import 'package:contact_auth_bloc/src/data/repositories/contact/contacts_repository.dart';
 import 'package:contact_auth_bloc/src/domain/entities/contact/contact_entity.dart';
 import 'package:contact_auth_bloc/src/domain/entities/user/user_entity.dart';
@@ -17,12 +16,8 @@ class DeleteContactUseCaseImpl implements DeleteContactUseCase {
 
   @override
   Future<void> call(ContactEntity contact) async {
-    try {
-      UserEntity user = _getUserUseCase();
+    UserEntity user = _getUserUseCase();
 
-      await _repository.deleteContact(contact, user.id);
-    } on AppGenericException catch (_) {
-      throw AppGenericException();
-    }
+    await _repository.deleteContact(contact, user.id);
   }
 }

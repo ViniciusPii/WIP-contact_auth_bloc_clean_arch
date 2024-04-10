@@ -1,4 +1,3 @@
-import 'package:contact_auth_bloc/src/core/errors/app_exceptions.dart';
 import 'package:contact_auth_bloc/src/data/repositories/contact/contacts_repository.dart';
 import 'package:contact_auth_bloc/src/domain/entities/contact/contact_entity.dart';
 import 'package:contact_auth_bloc/src/domain/entities/user/user_entity.dart';
@@ -17,12 +16,8 @@ class GetContactsUseCaseImpl implements GetContactsUseCase {
 
   @override
   Stream<List<ContactEntity>> call() {
-    try {
-      UserEntity user = _getUserUseCase();
+    UserEntity user = _getUserUseCase();
 
-      return _repository.getContacts(user.id);
-    } on AppGenericException catch (_) {
-      throw AppGenericException();
-    }
+    return _repository.getContacts(user.id);
   }
 }
