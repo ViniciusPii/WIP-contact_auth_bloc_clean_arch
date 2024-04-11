@@ -4,44 +4,44 @@ sealed class ProfileState {
   const ProfileState();
 }
 
-class ProfileStateInitial extends ProfileState {
-  const ProfileStateInitial();
+class ProfileInitialState extends ProfileState {
+  const ProfileInitialState();
 }
 
 // SignOut
 
-class ProfileStateSignOutLoading extends ProfileState {
-  const ProfileStateSignOutLoading();
+class ProfileSignOutLoadingState extends ProfileState {
+  const ProfileSignOutLoadingState();
 }
 
-class ProfileStateSignOutError extends ProfileState {
-  const ProfileStateSignOutError();
+class ProfileSignOutErrorState extends ProfileState {
+  const ProfileSignOutErrorState();
 }
 
 // Update User Name
-class ProfileStateUpdateUserLoading extends ProfileState {
-  const ProfileStateUpdateUserLoading();
+class ProfileUpdateUserLoadingState extends ProfileState {
+  const ProfileUpdateUserLoadingState();
 }
 
-class ProfileStateUpdateUserSuccess extends ProfileState {
-  const ProfileStateUpdateUserSuccess({required this.message});
+class ProfileUpdateUserSuccessState extends ProfileState {
+  const ProfileUpdateUserSuccessState({required this.message});
 
   final String message;
 }
 
-class ProfileStateUpdateUserError extends ProfileState {
-  const ProfileStateUpdateUserError({required this.message});
+class ProfileUpdateUserErrorState extends ProfileState {
+  const ProfileUpdateUserErrorState({required this.message});
 
   final String message;
 }
 
 // Get User
-class ProfileStateUserSuccess extends ProfileState {
-  const ProfileStateUserSuccess({required this.user});
+class ProfileUserSuccessState extends ProfileState {
+  const ProfileUserSuccessState({required this.user});
 
   final UserEntity user;
 }
 
-class ProfileStateUserError extends ProfileState {
-  const ProfileStateUserError();
+class ProfileUserErrorState extends ProfileState {
+  const ProfileUserErrorState();
 }

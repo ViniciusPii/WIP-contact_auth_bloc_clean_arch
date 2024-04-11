@@ -14,7 +14,7 @@ class ProfileCubit extends Cubit<ProfileState> {
   })  : _signOutUseCase = signOutUseCase,
         _getUserUseCase = getUserUseCase,
         _updateUserNameUseCase = updateUserNameUseCase,
-        super(const ProfileStateInitial());
+        super(const ProfileInitialState());
 
   final SignOutUseCase _signOutUseCase;
   final GetUserUseCase _getUserUseCase;
@@ -22,21 +22,21 @@ class ProfileCubit extends Cubit<ProfileState> {
 
   Future<void> updateUserName(String name) async {
     try {
-      emit(const ProfileStateUpdateUserLoading());
+      emit(const ProfileUpdateUserLoadingState());
 
       await _updateUserNameUseCase(name);
-      emit(const ProfileStateUpdateUserSuccess(message: 'Nome alterado com sucesso!'));
+      emit(const ProfileUpdateUserSuccessState(message: 'Nome alterado com sucesso!'));
     } on DeprecatedAppGenericException catch (e) {
-      emit(ProfileStateUpdateUserError(message: e.message ?? ''));
+      emit(ProfileUpdateUserErrorState(message: e.message ?? ''));
     }
   }
 
   void getUser() {
     try {
       final UserEntity user = _getUserUseCase();
-      emit(ProfileStateUserSuccess(user: user));
+      emit(ProfileUserSuccessState(user: user));
     } on AppGenericException catch (_) {
-      emit(const ProfileStateUserError());
+      emit(const ProfileUserErrorState());
     }
   }
 
@@ -44,7 +44,7 @@ class ProfileCubit extends Cubit<ProfileState> {
     try {
       await _signOutUseCase();
     } on AppGenericException catch (_) {
-      emit(const ProfileStateSignOutError());
+      emit(const ProfileSignOutErrorState());
     }
   }
 }

@@ -47,30 +47,30 @@ class _ProfilePageState extends State<ProfilePage> {
           body: BlocConsumer<ProfileCubit, ProfileState>(
             bloc: widget.controller,
             listener: (context, state) {
-              if (state is ProfileStateUpdateUserError) {
+              if (state is ProfileUpdateUserErrorState) {
                 return SnackBarComponent.info(context, message: state.message);
               }
 
-              if (state is ProfileStateUpdateUserSuccess) {
+              if (state is ProfileUpdateUserSuccessState) {
                 return SnackBarComponent.success(context, message: state.message);
               }
             },
             builder: (context, state) {
-              if (state is ProfileStateUpdateUserLoading || state is ProfileStateSignOutLoading) {
+              if (state is ProfileUpdateUserLoadingState || state is ProfileSignOutLoadingState) {
                 return const Center(
                   child: ThreeBounceComponent(),
                 );
               }
 
-              if (state is ProfileStateUserError) {
+              if (state is ProfileUserErrorState) {
                 return ErrorPage(retryAction: () => widget.controller.getUser());
               }
 
-              if (state is ProfileStateSignOutError) {
+              if (state is ProfileSignOutErrorState) {
                 return ErrorPage(retryAction: () => widget.controller.signOut());
               }
 
-              if (state is ProfileStateUserSuccess) {
+              if (state is ProfileUserSuccessState) {
                 return Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
