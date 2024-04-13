@@ -27,20 +27,15 @@ class UserDataSourceImpl implements UserDataSource {
     try {
       final User? user = _firebaseAuth.currentUser;
 
-      if (user != null) {
-        await user.updateDisplayName(name).timeout(const Duration(seconds: 5));
-      } else {
-        throw DeprecatedAppGenericException(message: 'Usuário não encontrado!');
-      }
+      await user!.updateDisplayName(name).timeout(const Duration(seconds: 5));
     } on FirebaseException catch (e) {
       if (e.code == 'network-request-failed') {
-        throw DeprecatedAppGenericException(message: 'Sem conexão com a internet!');
+        throw AppNetworkMessageException(message: 'Sem conexão com a internet!');
       }
-      throw DeprecatedAppGenericException(message: 'Erro inesperado no Firebase!');
-    } on DeprecatedAppGenericException catch (e) {
-      throw DeprecatedAppGenericException(message: e.message);
+
+      throw AppGenericMessageException(message: 'Estamos passando por indisponibilidades!');
     } catch (e) {
-      throw DeprecatedAppGenericException(message: 'Estamos passando por indisponibilidades!');
+      throw AppGenericMessageException(message: 'Estamos passando por indisponibilidades!');
     }
   }
 }

@@ -9,7 +9,6 @@ class ProfileInitialState extends ProfileState {
 }
 
 // SignOut
-
 class ProfileSignOutLoadingState extends ProfileState {
   const ProfileSignOutLoadingState();
 }
@@ -31,6 +30,12 @@ class ProfileUpdateUserSuccessState extends ProfileState {
 
 class ProfileUpdateUserErrorState extends ProfileState {
   const ProfileUpdateUserErrorState({required this.message});
+
+  final String message;
+}
+
+class ProfileUpdateUserNetworkErrorState extends ProfileState {
+  const ProfileUpdateUserNetworkErrorState({required this.message});
 
   final String message;
 }

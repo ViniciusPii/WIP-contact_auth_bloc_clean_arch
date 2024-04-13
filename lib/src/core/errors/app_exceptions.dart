@@ -1,9 +1,3 @@
-class DeprecatedAppGenericException implements Exception {
-  DeprecatedAppGenericException({this.message});
-
-  final String? message;
-}
-
 class AppGenericException implements Exception {}
 
 class AppGenericMessageException implements Exception {

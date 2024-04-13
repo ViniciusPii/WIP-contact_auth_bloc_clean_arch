@@ -26,8 +26,10 @@ class ProfileCubit extends Cubit<ProfileState> {
 
       await _updateUserNameUseCase(name);
       emit(const ProfileUpdateUserSuccessState(message: 'Nome alterado com sucesso!'));
-    } on DeprecatedAppGenericException catch (e) {
-      emit(ProfileUpdateUserErrorState(message: e.message ?? ''));
+    } on AppGenericMessageException catch (e) {
+      emit(ProfileUpdateUserErrorState(message: e.message));
+    } on AppNetworkMessageException catch (e) {
+      emit(ProfileUpdateUserNetworkErrorState(message: e.message));
     }
   }
 

@@ -48,6 +48,10 @@ class _ProfilePageState extends State<ProfilePage> {
             bloc: widget.controller,
             listener: (context, state) {
               if (state is ProfileUpdateUserErrorState) {
+                return SnackBarComponent.error(context, message: state.message);
+              }
+
+              if (state is ProfileUpdateUserNetworkErrorState) {
                 return SnackBarComponent.info(context, message: state.message);
               }
 
